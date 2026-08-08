@@ -8,16 +8,15 @@ self.addEventListener('install',(e)=>{
   self.skipWaiting();
 });
 
-// Activate - alle alten Caches löschen
+// Activate - alle alten Caches AGGRESSIV löschen
 self.addEventListener('activate',(e)=>{
-  console.log('[SW] Activate - deleting all old caches');
+  console.log('[SW] Activate - deleting ALL old caches');
   e.waitUntil(
     caches.keys().then(names=>{
+      console.log('[SW] Found caches:', names);
       return Promise.all(names.map(name=>{
-        if(name!==CACHE_NAME){
-          console.log('[SW] Delete:', name);
-          return caches.delete(name);
-        }
+        console.log('[SW] Deleting cache:', name);
+        return caches.delete(name);
       }));
     })
   );
