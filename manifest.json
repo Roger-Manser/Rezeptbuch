@@ -2,15 +2,30 @@
   "name": "Rezeptbuch",
   "short_name": "Rezeptbuch",
   "description": "Rezeptbuch - Deine digitale Rezeptsammlung",
-  "version": "4.6",
-  "timestamp": 1786193872,
-  "start_url": "/rezeptbuch/?t=1786193872",
+  "version": "4.7",
+  "timestamp": 1786194911,
+  "start_url": "/rezeptbuch/?t=1786194911",
   "scope": "/rezeptbuch/",
   "display": "standalone",
   "orientation": "portrait-primary",
   "background_color": "#F4F4F0",
   "theme_color": "#1F2A22",
   "icons": [
+    {
+      "src": "Icons/favicon-16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "Icons/favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "Icons/favicon-48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
     {
       "src": "Icons/icon-192.png",
       "sizes": "192x192",
@@ -24,10 +39,20 @@
       "purpose": "any"
     },
     {
-      "src": "Icons/icon-512-maskable.png",
+      "src": "Icons/icon-maskable-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    },
+    {
+      "src": "Icons/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "Icons/mstile-150.png",
+      "sizes": "150x150",
+      "type": "image/png"
     }
   ],
   "categories": ["productivity", "lifestyle"]
