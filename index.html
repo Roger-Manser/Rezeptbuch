@@ -236,7 +236,7 @@ h3.sec{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:upperc
 <header>
   <div class="brand">
     <h1>Rezeptbuch</h1>
-    <button class="sub" id="hdSub" onclick="toggleChangelog()" style="background:none;border:none;cursor:pointer;padding:0;font-family:inherit;font-size:inherit;color:inherit">v4.0</button>
+    <button class="sub" id="hdSub" onclick="toggleChangelog()" style="background:none;border:none;cursor:pointer;padding:0;font-family:inherit;font-size:inherit;color:inherit">v4.1</button>
   </div>
   <div class="statrow">
     <div class="stat"><div class="v" id="hRecipes">0</div><div class="l">Rezepte</div></div>
@@ -456,7 +456,7 @@ h3.sec{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:upperc
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 'use strict';
-const VERSION = '4.0';
+const VERSION = '4.1';
 const CHANGELOG = [
   {v:'3.2', d:'2026-08-03', items:[
     'KRITISCH: Service Worker mit absoluten /rezeptbuch/ Pfaden',
@@ -1536,8 +1536,8 @@ console.log('Current location:', window.location.href);
 if('serviceWorker' in navigator){
   window.addEventListener('load',()=>{
     console.log('🔧 Versuche Service Worker zu registrieren...');
-    // DISABLED: navigator.serviceWorker.register('/rezeptbuch/sw.js', {scope: '/rezeptbuch/'}).then(reg=>{
-      console.log('✅ Service Worker erfolgreich registriert!', reg);
+    navigator.serviceWorker.register('/rezeptbuch/sw.js', {scope: '/rezeptbuch/'}).then(reg=>{
+      console.log('✅ Service Worker erfolgreich registriert!');
       console.log('   State:', reg.active ? 'active' : 'pending');
       console.log('   Scope:', reg.scope);
       
