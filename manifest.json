@@ -2,6 +2,7 @@
   "name": "Rezeptbuch",
   "short_name": "Rezeptbuch",
   "description": "Rezeptbuch - Deine digitale Rezeptsammlung",
+  "version": "4.5",
   "start_url": "/rezeptbuch/",
   "scope": "/rezeptbuch/",
   "display": "standalone",
@@ -28,20 +29,5 @@
       "purpose": "maskable"
     }
   ],
-  "screenshots": [
-    {
-      "src": "Icons/mstile-150.png",
-      "sizes": "150x150",
-      "type": "image/png"
-    }
-  ],
-  "categories": ["productivity", "lifestyle"],
-  "shortcuts": [
-    {
-      "name": "Neues Rezept",
-      "short_name": "Rezept",
-      "description": "Ein neues Rezept hinzufügen",
-      "url": "/rezeptbuch/?action=new"
-    }
-  ]
+  "categories": ["productivity", "lifestyle"]
 }
