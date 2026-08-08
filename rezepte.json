@@ -10194,6 +10194,92 @@
       "steps": "1. Öl in einem Brattopf heiss werden lassen, Fleisch portionenweise rundum ca. 5 Min. anbraten, mit Salz und Pfeffer würzen.\n\n2. Getrocknete Tomaten, gehackte Tomaten, Oliven, Salbei und Lorbeerblatt daruntermischen.\n\n3. Zugedeckt ca. 50 Min. in der unteren Hälfte des auf 180 Grad vorgeheizten Ofens schmoren. Herausnehmen, Lorbeerblatt entfernen.\n\nTipp: Dazu passt Risotto.\n\nNährwerte pro Portion: 382 kcal, F 24 g, Kh 7 g, E 33 g. Lactosefrei und glutenfrei.",
       "img": "bilder/mediterranes-kaninchen.jpg",
       "src": "https://www.bettybossi.ch/de/rezepte/rezept/mediterranes-kaninchen-10003232/"
+    },
+    {
+      "name": "Hörnlisalat",
+      "cat": "Beilage",
+      "portions": 4,
+      "time": 25,
+      "ings": [
+        {
+          "q": "200",
+          "u": "g",
+          "n": "Hörnli"
+        },
+        {
+          "q": "",
+          "u": "",
+          "n": "Salz"
+        },
+        {
+          "q": "1",
+          "u": "Stück",
+          "n": "Karotte"
+        },
+        {
+          "q": "1",
+          "u": "Stück",
+          "n": "kleiner Kohlrabi"
+        },
+        {
+          "q": "1",
+          "u": "Stück",
+          "n": "rote Peperoni"
+        },
+        {
+          "q": "100",
+          "u": "g",
+          "n": "Tilsiter"
+        },
+        {
+          "q": "100",
+          "u": "g",
+          "n": "Essiggurken"
+        },
+        {
+          "q": "1",
+          "u": "Stück",
+          "n": "Zwiebel"
+        },
+        {
+          "q": "0.5",
+          "u": "Bund",
+          "n": "Petersilie"
+        },
+        {
+          "q": "1",
+          "u": "EL",
+          "n": "Senf"
+        },
+        {
+          "q": "1",
+          "u": "EL",
+          "n": "Mayonnaise"
+        },
+        {
+          "q": "3",
+          "u": "EL",
+          "n": "Condimento bianco"
+        },
+        {
+          "q": "5",
+          "u": "EL",
+          "n": "Olivenöl"
+        },
+        {
+          "q": "3",
+          "u": "EL",
+          "n": "Milch"
+        },
+        {
+          "q": "",
+          "u": "",
+          "n": "Salz, Pfeffer"
+        }
+      ],
+      "steps": "1. Hörnli in siedendem Salzwasser bissfest garen. Abgiessen und mit kaltem Wasser abspülen. Gut abtropfen lassen.\n\n2. Inzwischen Karotte und Kohlrabi an der Röstiraffel reiben.\n\n3. Peperoni und Käse in Würfelchen schneiden. Essiggurken in feine Streifen schneiden.\n\n4. Zwiebel und Petersilie fein hacken.\n\n5. Für die Sauce Senf, Mayonnaise, Essig, Öl und Milch verrühren.\n\n6. Hörnli und alle vorbereiteten Zutaten mit der Sauce mischen. Mit Salz und Pfeffer abschmecken.\n\nTipp: Passt zu Grilladen.\n\nNährwerte pro Person: Eiweiss 17 g, Fett 26 g, Kohlenhydrate 47 g, 500 kcal.",
+      "img": "bilder/hoernlisalat.jpg",
+      "src": "https://migusto.migros.ch/de/rezepte/hoernlisalat"
     }
   ]
 }
