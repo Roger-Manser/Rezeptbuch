@@ -8,9 +8,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#1F2A22">
-<link rel="manifest" href="manifest.json?v=5.7">
-<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
-<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.json?v=6.0">
+<link rel="icon" type="image/png" sizes="48x48" href="icons/favicon-48.png">
+<link rel="apple-touch-icon" href="icons/favicon-48.png">
 <title>Rezeptbuch</title>
 <style>
 :root{
@@ -236,7 +236,7 @@ h3.sec{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:upperc
 <header>
   <div class="brand">
     <h1>Rezeptbuch</h1>
-    <button class="sub" id="hdSub" onclick="toggleChangelog()" style="background:none;border:none;cursor:pointer;padding:0;font-family:inherit;font-size:inherit;color:inherit">v5.7</button>
+    <button class="sub" id="hdSub" onclick="toggleChangelog()" style="background:none;border:none;cursor:pointer;padding:0;font-family:inherit;font-size:inherit;color:inherit">v6.0</button>
   </div>
   <div class="statrow">
     <div class="stat"><div class="v" id="hRecipes">0</div><div class="l">Rezepte</div></div>
@@ -458,8 +458,57 @@ h3.sec{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:upperc
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 'use strict';
-const VERSION = '5.7';
+// ⚠️ VERSION SYNC CHECKLIST (CRITICAL - DO NOT FORGET!)
+// When updating version, MUST update ALL 3 locations:
+// 1. const VERSION = 'X.Y'; (Zeile ~459)
+// 2. <button>vX.Y</button> (Zeile ~239)
+// 3. manifest.json?vX.Y (Zeile ~11) ← EASY TO FORGET!
+// If manifest.json?v is not updated, old manifest gets cached!
+
+const VERSION = '6.0';
 const CHANGELOG = [
+  {v:'6.0', d:'2026-08-12', items:[
+    'FIX: Browser Favicon korrigiert (favicon-48.png statt icon-192.png)',
+    'Web-App zeigt jetzt das korrekte Icon im Browser-Tab',
+    'Handy-App (PWA) hatte schon das richtige Icon aus manifest.json'
+  ]},
+  {v:'5.9', d:'2026-08-12', items:[
+    'VERSION SYNC CHECKLIST hinzugefügt (3 Stellen müssen immer synchronisiert sein)',
+    'CHANGELOG nachgeführt für v5.0-5.8'
+  ]},
+    'FIX: NUR die korrekten Icons verwenden (icon-maskable-512.png)',
+    'Entfernt: icon-192.png, icon-512.png, icon-512-maskable.png (waren Spiegelei)',
+    'Behält nur: favicon-48.png und icon-maskable-512.png'
+  ]},
+  {v:'5.6', d:'2026-08-12', items:[
+    'FIX: Alle Icons/ Pfade auf icons/ (Groß-/Kleinschreibung) korrigiert',
+    'GitHub ist case-sensitive - Pfade müssen korrekt sein'
+  ]},
+  {v:'5.5', d:'2026-08-12', items:[
+    'manifest.json Cache-Breaker: Query-Parameter v=5.4 hinzugefügt',
+    'Erzwingt dass Browser neue manifest.json lädt'
+  ]},
+  {v:'5.4', d:'2026-08-12', items:[
+    'FIX: icons/ Ordner korrigiert (war Icons/ mit großem I)',
+    'Groß-/Kleinschreibung ist wichtig auf GitHub'
+  ]},
+  {v:'5.3', d:'2026-08-12', items:[
+    'FIX: Icon-Namen korrigiert (icon-512-maskable.png nicht icon-maskable-512.png)',
+    'Manifest.json mit echten Dateinamen aktualisiert'
+  ]},
+  {v:'5.2', d:'2026-08-12', items:[
+    'Cache-Breaker Query-Parameter hinzugefügt: manifest.json?v=5.2',
+    'Browser wird gezwungen neue manifest.json zu laden'
+  ]},
+  {v:'5.1', d:'2026-08-12', items:[
+    'FIX: Icon-Namen in manifest.json (maskable Icons)',
+    'icon-512-maskable.png ist die echte maskable Icon-Datei'
+  ]},
+  {v:'5.0', d:'2026-08-12', items:[
+    'KRITISCH: PWA Installation Fix - Minimale manifest.json',
+    'Vereinfacht und bereinigt für maximale Kompatibilität',
+    'Service Worker Cache aggressiv verbessert'
+  ]},
   {v:'4.8', d:'2026-08-08', items:[
     'Neu: API Guthaben Link in den Daten-Einstellungen (💳 Button)',
     'Referenznummer bestellung@scheese.ch angezeigt'
@@ -1569,7 +1618,7 @@ if(ghReady()) pullFromGitHub(false);
 else if(DB.src) syncFromSource(false);
 
 /* Service Worker für Installierbarkeit + Offline + Auto-Update + DEBUG */
-console.log('🍳 Rezeptbuch v5.7 - NUR korrekte Icons - DEBUG MODE AKTIV');
+console.log('🍳 Rezeptbuch v6.0 - Browser Favicon korrigiert - DEBUG MODE AKTIV');
 console.log('Browser supports Service Worker:', 'serviceWorker' in navigator);
 console.log('Current location:', window.location.href);
 
