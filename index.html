@@ -1,0 +1,1622 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<!-- Cache Breaker - force rebuild: 2026-08-08 v4.0 -->
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#1F2A22">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" sizes="192x192" href="Icons/icon-192.png">
+<link rel="apple-touch-icon" href="Icons/apple-touch-icon.png">
+<title>Rezeptbuch</title>
+<style>
+:root{
+  --bg:#F4F4F0; --card:#FFFFFF; --ink:#22301F; --ink-soft:#5F6B5C;
+  --line:#DFE2DA; --accent:#3E7C4F; --amber:#C9821A; --plum:#8A4A5E;
+  --accent-soft:#E7F0E9; --amber-soft:#F8EEDC; --plum-soft:#F3E6EA; --radius:12px;
+  --alert:#B3261E; --alert-soft:#FBE9E7;
+  --mono:ui-monospace,'SF Mono','Cascadia Mono','Roboto Mono',Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  background:var(--bg);color:var(--ink);
+  display:flex;flex-direction:column;max-width:560px;margin:0 auto;min-height:100dvh;
+}
+header{background:#1F2A22;color:#fff;padding:18px 16px 14px;border-radius:0 0 18px 18px}
+.brand{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+.brand h1{font-size:15px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.brand .sub{font-size:12px;color:#9FB3A4;font-family:var(--mono)}
+.statrow{display:flex;gap:8px}
+.stat{flex:1;background:#2B3A2F;border-radius:8px;padding:8px 10px}
+.stat .v{font-family:var(--mono);font-size:16px;font-weight:700}
+.stat .l{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#9FB3A4;margin-top:2px}
+nav{display:flex;background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+nav button{flex:1;padding:13px 0;border:none;background:none;font-size:14px;font-weight:600;color:var(--ink-soft);border-bottom:3px solid transparent;cursor:pointer}
+nav button.active{color:var(--ink);border-bottom-color:var(--accent)}
+main{flex:1;padding:14px 14px 90px;overflow-y:auto}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px;margin-bottom:12px}
+.empty{text-align:center;color:var(--ink-soft);padding:36px 16px;font-size:14px;line-height:1.5}
+.searchbox{position:relative;margin-bottom:10px}
+.searchbox input{padding-left:36px;padding-right:38px}
+.searchbox .ic{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--ink-soft);font-size:15px;pointer-events:none}
+.searchbox .clr{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:26px;height:26px;border:none;background:var(--line);color:var(--ink);border-radius:50%;font-size:15px;cursor:pointer;display:none;align-items:center;justify-content:center;line-height:1}
+.searchbox .clr.show{display:flex}
+.chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:8px;-webkit-overflow-scrolling:touch}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;padding:7px 13px;border-radius:18px;border:1px solid var(--line);background:var(--card);color:var(--ink-soft);font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
+.chip.active{background:#1F2A22;color:#fff;border-color:#1F2A22}
+.sortrow{display:flex;align-items:center;gap:8px;margin-bottom:12px;font-size:13px;color:var(--ink-soft)}
+.sortrow select{flex:0 0 auto;width:auto;padding:7px 28px 7px 10px;font-size:13px;border-radius:8px}
+.entry{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:12px;margin-bottom:8px;cursor:pointer;display:flex;align-items:center;gap:10px}
+.entry:active{background:#F7F8F5}
+.entry img.th{width:46px;height:46px;border-radius:8px;object-fit:cover;flex:none;background:#EEE;border:1px solid var(--line)}
+.entry .tag{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.04em;padding:4px 7px;border-radius:6px;white-space:nowrap}
+.tag.schnell{background:var(--accent-soft);color:var(--accent)}
+.tag.wochenende{background:var(--amber-soft);color:var(--amber)}
+.tag.beilage{background:var(--plum-soft);color:var(--plum)}
+.tag.dessert{background:#E8ECF5;color:#46598F}
+.entry .mid{flex:1;min-width:0}
+.entry .t1{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.entry .t2{font-size:12px;color:var(--ink-soft);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.entry .fav{flex:none;font-size:16px;color:var(--amber)}
+label{display:block;font-size:12px;font-weight:600;color:var(--ink-soft);margin:10px 0 4px}
+input,select,textarea{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:8px;font-size:16px;font-family:inherit;background:#fff;color:var(--ink)}
+textarea{min-height:90px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:0;border-color:var(--accent)}
+.row2{display:flex;gap:10px}.row2>div{flex:1}
+.hint{font-size:11px;color:var(--ink-soft);margin-top:6px;line-height:1.4}
+.hint.busy{color:var(--alert);font-weight:700;font-size:12px;background:var(--alert-soft);border:1px solid var(--alert);border-radius:8px;padding:8px 10px;animation:blink 1s steps(1,end) infinite}
+.hint.err{color:var(--alert);font-weight:600}
+#changelog{margin-top:12px;border-top:1px solid var(--line);padding-top:12px}
+.clItem{margin-bottom:14px}
+.clItem:last-child{margin-bottom:0}
+.clHead{display:flex;align-items:baseline;gap:8px;margin-bottom:5px}
+.clVer{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--accent);background:var(--accent-soft);padding:2px 7px;border-radius:6px}
+.clVer.cur{background:var(--accent);color:#fff}
+.clDate{font-size:11px;color:var(--ink-soft)}
+.clList{margin:0;padding-left:16px}
+.clList li{font-size:12.5px;color:var(--ink);line-height:1.55;margin-bottom:3px}
+@keyframes blink{50%{opacity:.25}}
+@media (prefers-reduced-motion:reduce){.hint.busy{animation:none}}
+.btn{display:block;width:100%;padding:13px;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;margin-top:14px}
+.btn.primary{background:#1F2A22;color:#fff}
+.btn.danger{background:none;color:#B3261E;border:1px solid #E8C5C2;margin-top:8px}
+.btn.ghost{background:none;color:var(--ink-soft);border:1px solid var(--line);margin-top:8px}
+.fab{position:fixed;bottom:20px;right:max(16px,calc(50% - 264px));width:58px;height:58px;border-radius:50%;border:none;background:var(--accent);color:#fff;font-size:30px;line-height:1;box-shadow:0 4px 14px rgba(62,124,79,.4);cursor:pointer;z-index:6}
+.overlay{position:fixed;inset:0;background:rgba(20,29,23,.55);z-index:10;display:none;align-items:flex-end;justify-content:center}
+.overlay.open{display:flex}
+.sheet{background:var(--bg);width:100%;max-width:560px;max-height:92dvh;overflow-y:auto;border-radius:18px 18px 0 0;padding:18px 16px 28px}
+.sheet h2{font-size:17px;margin-bottom:4px}
+.sheet .sub{font-size:12px;color:var(--ink-soft)}
+.dhead{display:flex;align-items:flex-start;gap:10px}
+.dhead .mid{flex:1;min-width:0}
+.dhead .star{flex:none;width:42px;height:42px;border-radius:10px;border:1px solid var(--line);background:#fff;font-size:20px;cursor:pointer;color:#C9C9C0}
+.dhead .star.on{color:var(--amber);border-color:var(--amber)}
+.dimg{width:100%;max-height:220px;object-fit:cover;border-radius:12px;margin-top:12px;display:block;border:1px solid var(--line)}
+.portbar{display:flex;align-items:center;gap:10px;margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+.portbar .pl{flex:1;font-size:13px;font-weight:600;color:var(--ink-soft)}
+.portbar button{width:38px;height:38px;border-radius:8px;border:1px solid var(--line);background:#fff;font-size:19px;font-weight:700;color:var(--ink);cursor:pointer}
+.portbar .pv{font-family:var(--mono);font-size:16px;font-weight:700;min-width:26px;text-align:center}
+.inglist{margin-top:8px}
+.ingline{display:flex;gap:10px;padding:9px 2px;border-bottom:1px solid var(--line);font-size:14px}
+.ingline:last-child{border-bottom:none}
+.ingline .qy{font-family:var(--mono);font-size:13px;font-weight:700;white-space:nowrap;min-width:74px;color:var(--accent)}
+.steplist{margin-top:6px}
+.step{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.step:last-child{border-bottom:none}
+.step .no{flex:none;width:24px;height:24px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.step .body{flex:1;font-size:14px;line-height:1.55;white-space:pre-wrap}
+.timerbtn{display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:6px 12px;border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent);border-radius:18px;font-size:13px;font-weight:700;cursor:pointer}
+.timerbtn.run{background:var(--accent);color:#fff}
+.nutri{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
+.nutri .nb{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 4px;text-align:center}
+.nutri .nv{font-family:var(--mono);font-size:15px;font-weight:700}
+.nutri .nl{font-size:10px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.04em;margin-top:2px}
+.rating{display:flex;gap:3px;flex-wrap:wrap;margin-top:8px}
+.rating button{flex:1;min-width:26px;height:34px;border:1px solid var(--line);background:#fff;border-radius:7px;font-size:13px;font-weight:700;color:var(--ink-soft);cursor:pointer}
+.rating button.on{background:var(--amber);color:#fff;border-color:var(--amber)}
+.ingrow{display:flex;gap:6px;margin-bottom:6px;align-items:center}
+.ingrow input.q{flex:0 0 64px}.ingrow input.u{flex:0 0 64px}.ingrow input.n{flex:1;min-width:0}
+.ingrow .rm{flex:0 0 38px;height:44px;border:1px solid var(--line);border-radius:8px;background:#fff;color:#B3261E;font-size:18px;cursor:pointer}
+.shoprow{display:flex;align-items:center;gap:10px;padding:11px 2px;border-bottom:1px solid var(--line)}
+.shoprow:last-child{border-bottom:none}
+.shoprow input[type=checkbox]{width:22px;height:22px;accent-color:var(--accent);flex:none}
+.shoprow .txt{flex:1;font-size:14px;min-width:0}
+.shoprow.done .txt{text-decoration:line-through;color:var(--ink-soft)}
+.shoprow .qty{font-family:var(--mono);font-size:13px;font-weight:700;white-space:nowrap}
+.shoprow .rm{border:none;background:none;color:#B3261E;font-size:17px;cursor:pointer;padding:4px}
+.addrow{display:flex;gap:8px;margin-top:10px}.addrow input{flex:1}
+.addrow button{flex:0 0 52px;border:none;border-radius:8px;background:var(--accent);color:#fff;font-size:22px;font-weight:700;cursor:pointer}
+h3.sec{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin:18px 2px 8px}
+.filebtns{display:flex;gap:8px;margin-top:6px}.filebtns .btn{margin-top:0;font-size:13px;padding:11px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:90px;background:#1F2A22;color:#fff;font-size:13px;padding:10px 18px;border-radius:20px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:20;white-space:nowrap;max-width:90%;text-align:center}
+.toast.show{opacity:1}
+.imgUploadBox{display:flex;gap:8px;margin-bottom:6px;align-items:flex-start}
+.imgUploadBox input{flex:1}
+.imgUploadBox button{flex:0 0 auto;padding:11px 14px;margin-top:0;font-size:13px}
+.imgPreview{width:100%;max-height:150px;object-fit:cover;border-radius:8px;margin-top:8px;border:1px solid var(--line)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<style>
+#rezeptbuch-settings-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  background: #1F2A22;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+#rezeptbuch-settings-btn:hover {
+  background: #0d1509;
+}
+#rezeptbuch-settings-panel {
+  display: none;
+  position: fixed;
+  top: 50px;
+  right: 10px;
+  width: 320px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.15);
+  padding: 15px;
+  z-index: 1000;
+  max-height: 450px;
+  overflow-y: auto;
+}
+#rezeptbuch-settings-panel h3 {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  color: #1F2A22;
+}
+#rezeptbuch-settings-panel label {
+  display: block;
+  font-size: 12px;
+  color: #666;
+  margin-top: 8px;
+  margin-bottom: 2px;
+  font-weight: bold;
+}
+#rezeptbuch-settings-panel input {
+  width: 100%;
+  padding: 6px;
+  margin-bottom: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 12px;
+}
+#rezeptbuch-settings-panel button {
+  width: 100%;
+  padding: 6px;
+  margin: 4px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: bold;
+}
+#rezeptbuch-settings-status {
+  min-height: 18px;
+  margin: 8px 0 6px 0;
+  padding: 5px;
+  background: #f0f0f0;
+  border-radius: 4px;
+  font-size: 11px;
+  text-align: center;
+  color: #333;
+}
+.rezeptbuch-btn-save { background: #4CAF50; color: white; }
+.rezeptbuch-btn-test { background: #FFC107; color: black; }
+.rezeptbuch-btn-export { background: #6c757d; color: white; }
+.rezeptbuch-btn-import { background: #6c757d; color: white; }
+.rezeptbuch-btn-delete { background: #dc3545; color: white; }
+.rezeptbuch-btn-save:hover { background: #45a049; }
+.rezeptbuch-btn-test:hover { background: #ffb81c; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <h1>Rezeptbuch</h1>
+    <button class="sub" id="hdSub" onclick="toggleChangelog()" style="background:none;border:none;cursor:pointer;padding:0;font-family:inherit;font-size:inherit;color:inherit">v5.1</button>
+  </div>
+  <div class="statrow">
+    <div class="stat"><div class="v" id="hRecipes">0</div><div class="l">Rezepte</div></div>
+    <div class="stat"><div class="v" id="hFavs">0</div><div class="l">Favoriten</div></div>
+    <div class="stat"><div class="v" id="hOpen">0</div><div class="l">Posten offen</div></div>
+  </div>
+</header>
+
+<nav>
+  <button class="active" data-tab="recipes">Rezepte</button>
+  <button data-tab="favs">Favoriten</button>
+  <button data-tab="shop">Einkauf</button>
+  <button data-tab="data">Daten</button>
+</nav>
+
+<main>
+  <section id="tab-recipes">
+    <div class="searchbox">
+      <span class="ic">&#128269;</span>
+      <input id="search" type="search" name="rezept-suche" placeholder="Rezept oder Zutat suchen…" oninput="onSearch()" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" inputmode="search">
+      <button class="clr" id="searchClr" onclick="clearSearch()" aria-label="Suche löschen">&times;</button>
+    </div>
+    <div class="chips" id="chips"></div>
+    <div class="sortrow">
+      <span>Sortieren:</span>
+      <select id="sortSel" onchange="renderRecipes()">
+        <option value="name">Name (A–Z)</option>
+        <option value="rating">Bewertung</option>
+        <option value="time">Zeit (kurz zuerst)</option>
+        <option value="fav">Favoriten zuerst</option>
+      </select>
+    </div>
+    <div id="recipeList"></div>
+  </section>
+
+  <section id="tab-favs" hidden>
+    <div id="favList"></div>
+  </section>
+
+  <section id="tab-shop" hidden>
+    <div class="card" style="margin-top:0">
+      <div id="shopList"></div>
+      <div class="addrow">
+        <input id="shopNew" name="shop-neu" placeholder="Posten ergänzen, z.B. Brot" autocomplete="off" autocorrect="off" autocapitalize="sentences" spellcheck="false">
+        <button onclick="addShopItem()" aria-label="Posten hinzufügen">+</button>
+      </div>
+    </div>
+    <div class="hint" style="margin:0 2px 8px">Tipp: Öffne ein Rezept und tippe auf «Zutaten auf die Einkaufsliste», um alle Zutaten in der gewählten Portionsmenge zu übernehmen.</div>
+    <button class="btn ghost" style="margin-top:0" onclick="clearDone()">Erledigte entfernen</button>
+  </section>
+
+  <section id="tab-data" hidden>
+    <div class="card">
+      <h3 class="sec" style="margin-top:0">GitHub-Sync (lesen)</h3>
+      <p style="font-size:13px;color:var(--ink-soft);line-height:1.5">Lädt die Rezepte beim Start automatisch von einer Quelle (z.B. <b>rezepte.json</b> im selben Repo oder einer vollständigen URL). Feld leer = kein Sync.</p>
+      <label>Quelle (Dateiname oder URL)</label>
+      <input id="srcUrl" name="sync-quelle" placeholder="rezepte.json" onchange="setSrc(this.value)" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" inputmode="url">
+      <button class="btn primary" onclick="syncFromSource(true)">Jetzt aktualisieren</button>
+      <div class="hint" id="syncStatus"></div>
+      <div class="hint">Ist unten der Schreib-Sync mit Token eingerichtet, werden Änderungen (Bearbeiten, Neu, Löschen) automatisch ins Repo zurückgeschrieben und die Quelle wird nicht mehr blind überschrieben.</div>
+    </div>
+    <div class="card">
+      <h3 class="sec" style="margin-top:0">GitHub-Schreibzugriff (Token)</h3>
+      <p style="font-size:13px;color:var(--ink-soft);line-height:1.5">Damit werden <b>Bearbeiten, Neu und Löschen</b> direkt ins Repo gespeichert – geräteübergreifend. Nötig ist ein <b>fine-grained Token</b> mit Contents-Schreibrecht für genau dieses Repo.</p>
+      <div class="row2">
+        <div><label>Repo-Owner</label><input id="ghOwner" name="gh-owner" placeholder="roger-manser" onchange="setGh()" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></div>
+        <div><label>Repo-Name</label><input id="ghRepo" name="gh-repo" placeholder="rezeptbuch" onchange="setGh()" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></div>
+      </div>
+      <div class="row2">
+        <div><label>Branch</label><input id="ghBranch" name="gh-branch" placeholder="main" onchange="setGh()" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></div>
+        <div><label>Dateipfad</label><input id="ghPath" name="gh-path" placeholder="rezepte.json" onchange="setGh()" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></div>
+      </div>
+      <label>Token (fine-grained, Contents: Read &amp; Write)</label>
+      <input id="ghToken" type="password" name="gh-token-nostore" placeholder="github_pat_…" onchange="setGh()" autocomplete="new-password" autocorrect="off" autocapitalize="off" spellcheck="false" data-1p-ignore data-lpignore="true" data-form-type="other">
+      <div class="filebtns">
+        <button class="btn primary" style="flex:1" onclick="testGitHub()">Testen</button>
+        <button class="btn ghost" style="flex:1;margin-top:0" onclick="pushToGitHub(true)">Hochladen</button>
+        <button class="btn ghost" style="flex:1;margin-top:0" onclick="pullFromGitHub(true)">Laden</button>
+      </div>
+      <div class="hint" id="ghStatus"></div>
+      <div class="hint">Der Token wird nur lokal auf diesem Gerät gespeichert (localStorage), nie an Dritte übermittelt – ausschliesslich an api.github.com.</div>
+    </div>
+    <div class="card">
+      <h3 class="sec" style="margin-top:0">Rezept-Scan (KI)</h3>
+      <p style="font-size:13px;color:var(--ink-soft);line-height:1.5">Erlaubt im Rezept-Formular das Einlesen von <b>Foto oder PDF</b>. Die Vorlage wird an die Anthropic-API geschickt und als Rezept vorausgefüllt – du prüfst und speicherst selbst.</p>
+      <label>Anthropic API-Key</label>
+      <input id="aiKey" type="password" name="ai-key-nostore" placeholder="sk-ant-…" onchange="setAi()" autocomplete="new-password" autocorrect="off" autocapitalize="off" spellcheck="false" data-1p-ignore data-lpignore="true" data-form-type="other">
+      <label>Modell</label>
+      <select id="aiModel" onchange="setAi()">
+        <option value="claude-sonnet-4-6">Sonnet (empfohlen, günstig)</option>
+        <option value="claude-opus-4-8">Opus (teurer, sehr genau)</option>
+      </select>
+      <button class="btn ghost" onclick="testApiKey()" style="margin-top:8px">API-Key testen</button>
+      <div class="hint" id="aiStatus"></div>
+      <div class="hint">Der Key bleibt lokal auf diesem Gerät und geht nur an api.anthropic.com. Er wird nicht ins Repo geschrieben und nicht exportiert.</div>
+      <a href="https://console.anthropic.com/account/billing/overview" target="_blank" style="display:inline-block;margin-top:12px;padding:8px 12px;background:var(--accent);color:white;border-radius:6px;text-decoration:none;font-size:13px;font-weight:600">💳 API Guthaben ansehen</a>
+      <div class="hint" style="margin-top:8px">Referenz: <code style="background:#f0f0f0;padding:2px 4px;border-radius:3px">bestellung@scheese.ch</code></div>
+    </div>
+    <div class="card">
+      <h3 class="sec" style="margin-top:0">Sicherung</h3>
+      <div class="filebtns">
+        <button class="btn primary" onclick="saveJSON()">Datei speichern</button>
+        <button class="btn ghost" onclick="document.getElementById('loadInput').click()">Datei laden</button>
+      </div>
+      <input type="file" id="loadInput" accept=".json" hidden onchange="loadJSON(event)">
+      <div class="hint">«Datei laden» ersetzt die ganze Sammlung.</div>
+    </div>
+    <div class="card">
+      <h3 class="sec" style="margin-top:0">Rezepte importieren</h3>
+      <button class="btn primary" style="margin-top:0" onclick="document.getElementById('importInput').click()">Rezepte aus Datei hinzufügen</button>
+      <input type="file" id="importInput" accept=".json" hidden onchange="importJSON(event)">
+      <label>Oder als Text einfügen</label>
+      <textarea id="importText" placeholder='Rezept-JSON hier einfügen…' style="min-height:70px;font-family:var(--mono);font-size:13px" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
+      <button class="btn ghost" onclick="importFromText()">Eingefügten Text importieren</button>
+    </div>
+    <div class="card">
+      <h3 class="sec" style="margin-top:0">Versionsänderungen</h3>
+      <button class="btn ghost" style="margin-top:0" onclick="toggleChangelog()"><span id="clArrow">▸</span> Was ist neu? (v<span id="clVer"></span>)</button>
+      <div id="changelog" hidden></div>
+    </div>
+    <div class="card">
+      <h3 class="sec" style="margin-top:0">Zurücksetzen</h3>
+      <button class="btn danger" style="margin-top:0" onclick="resetAll()">Alles löschen</button>
+    </div>
+  </section>
+</main>
+
+<button class="fab" onclick="openRecipeSheet()" aria-label="Rezept hinzufügen">+</button>
+
+<!-- Detailansicht -->
+<div class="overlay" id="viewOverlay" onclick="if(event.target===this)closeView()">
+  <div class="sheet">
+    <div class="dhead">
+      <div class="mid">
+        <h2 id="vName">Rezept</h2>
+        <div class="sub" id="vMeta"></div>
+      </div>
+      <button class="star" id="vFav" onclick="toggleFav()" aria-label="Favorit umschalten">&#9733;</button>
+    </div>
+    <img id="vImg" class="dimg" alt="" hidden onerror="this.hidden=true">
+
+    <div class="portbar">
+      <span class="pl">Portionen</span>
+      <button onclick="changePortions(-1)" aria-label="Weniger">&minus;</button>
+      <span class="pv" id="vPortions">4</span>
+      <button onclick="changePortions(1)" aria-label="Mehr">+</button>
+    </div>
+
+    <h3 class="sec">Zutaten</h3>
+    <div class="card" style="margin-bottom:0"><div class="inglist" id="vIngs"></div></div>
+
+    <h3 class="sec">Nährwerte pro Portion</h3>
+    <div id="vNutri"></div>
+
+    <h3 class="sec">Zubereitung</h3>
+    <div class="card" style="margin-bottom:0"><div class="steplist" id="vSteps"></div></div>
+
+    <h3 class="sec">Meine Bewertung</h3>
+    <div class="rating" id="vRating"></div>
+
+    <h3 class="sec">Bemerkungen</h3>
+    <textarea id="vNote" placeholder="Eigene Notizen zu diesem Rezept…" oninput="saveNote()" autocomplete="off" autocapitalize="sentences"></textarea>
+
+    <button class="btn primary" onclick="ingsToShop()">Zutaten auf die Einkaufsliste</button>
+    <div class="filebtns">
+      <button class="btn ghost" style="margin-top:0;flex:1" onclick="shareRecipe()">Teilen</button>
+      <button class="btn ghost" style="margin-top:0;flex:1" onclick="recipeToPDF()">Als PDF</button>
+    </div>
+    <button class="btn ghost" onclick="editFromView()">Rezept bearbeiten</button>
+    <button class="btn ghost" onclick="closeView()">Schliessen</button>
+  </div>
+</div>
+
+<!-- Erfassen/Bearbeiten -->
+<div class="overlay" id="recOverlay" onclick="if(event.target===this)closeRecipe()">
+  <div class="sheet">
+    <h2 id="recTitle">Neues Rezept</h2>
+    <div class="sub">Zutaten und Zubereitung erfassen</div>
+    <div class="filebtns" id="aiScanBox" style="margin-bottom:12px">
+      <button class="btn ghost" style="flex:1;margin-top:0" onclick="pickScan('camera')">📷 Foto scannen</button>
+      <button class="btn ghost" style="flex:1;margin-top:0" onclick="pickScan('file')">📄 Foto/PDF wählen</button>
+    </div>
+    <input type="file" id="aiFileCam" accept="image/*" capture="environment" style="display:none" onchange="handleScanFile(this)">
+    <input type="file" id="aiFile" accept="image/*,application/pdf" style="display:none" onchange="handleScanFile(this)">
+    <div class="hint" id="aiScanHint" style="margin:-6px 0 10px"></div>
+    <label>Name</label>
+    <input id="rcName" name="rc-name" placeholder="z.B. Cordon bleu" autocomplete="off" autocorrect="off" autocapitalize="sentences" spellcheck="false">
+    <div class="row2">
+      <div><label>Kategorie</label>
+        <select id="rcCat"><option>Schnell</option><option>Wochenende</option><option>Beilage</option><option>Dessert</option></select>
+      </div>
+      <div><label>Portionen</label><input id="rcPortions" type="number" inputmode="numeric" placeholder="4"></div>
+    </div>
+    <label>Zubereitungszeit (Minuten, optional)</label>
+    <input id="rcTime" type="number" inputmode="numeric" placeholder="z.B. 30">
+    <label>Bild (Pfad oder URL, optional)</label>
+    <div class="imgUploadBox">
+      <input id="rcImg" name="rc-img" placeholder="z.B. bilder/rezept.jpg" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" inputmode="url">
+      <button type="button" class="btn ghost" onclick="pickImageUpload()" id="uploadImgBtn">📤 Upload</button>
+    </div>
+    <input type="file" id="recImgFile" accept="image/*" hidden onchange="handleImageUpload(this)">
+    <img id="rcImgPreview" class="imgPreview" alt="" hidden>
+    <div class="hint" id="imgUploadHint" style="margin-top:6px"></div>
+    <label>Herkunft / Quelle (optional)</label>
+    <input id="rcSrc" name="rc-src" placeholder="z.B. Betty Bossi" autocomplete="off" autocorrect="off" autocapitalize="sentences" spellcheck="false">
+    <label>Zutaten (Menge · Einheit · Zutat)</label>
+    <div id="ingRows"></div>
+    <button class="btn ghost" style="margin-top:4px" onclick="addIngRow()">+ Zutat</button>
+    <label>Zubereitung</label>
+    <textarea id="rcSteps" placeholder="Schritte, Tipps, Garzeiten… (jeder Schritt auf neuer Zeile oder mit 1. 2. 3.)" autocomplete="off" autocapitalize="sentences"></textarea>
+    <button class="btn primary" id="rcSaveBtn" onclick="saveRecipe()">Rezept speichern</button>
+    <button class="btn danger" id="rcDeleteBtn" onclick="deleteRecipe()" hidden>Rezept löschen</button>
+    <button class="btn ghost" onclick="closeRecipe()">Abbrechen</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+'use strict';
+const VERSION = '5.1';
+const CHANGELOG = [
+  {v:'4.8', d:'2026-08-08', items:[
+    'Neu: API Guthaben Link in den Daten-Einstellungen (💳 Button)',
+    'Referenznummer bestellung@scheese.ch angezeigt'
+  ]},
+  {v:'4.7', d:'2026-08-08', items:[
+    'FIX: Icon-Namen in manifest.json korrigiert (icon-maskable-512.png)',
+    'Icons werden jetzt korrekt angezeigt (nicht nur Spiegelei-Emoji)',
+    'Alle echten PNG-Icons in der manifest.json eingebunden'
+  ]},
+  {v:'4.6', d:'2026-08-08', items:[
+    'KRITISCH: Service Worker cache aggressiv löschen (409-Konflikt behoben)',
+    'rezepte.json-Upload funktioniert wieder',
+    'Timestamp in manifest.json als Cache-Breaker'
+  ]},
+  {v:'4.5', d:'2026-08-08', items:[
+    'manifest.json vereinfacht: nur echte PNG-Icons statt Data-URIs',
+    'Service Worker optimiert'
+  ]},
+  {v:'4.4', d:'2026-08-08', items:[
+    'manifest.json: echte Icon-Pfade statt SVG Data-URIs',
+    'Icons/icon-192.png und Icons/icon-512.png'
+  ]},
+  {v:'4.3', d:'2026-08-08', items:[
+    'Icon-Pfade korrigiert (Icons/ Ordner)',
+    'Cache-Breaker Meta-Tags hinzugefügt'
+  ]},
+  {v:'4.2', d:'2026-08-08', items:[
+    'FIX: Kaputtes REZEPTBUCH SETTINGS PANEL entfernt (v3.1 Debug Log aktualisiert)'
+  ]},
+  {v:'4.1', d:'2026-08-08', items:[
+    'KRITISCH: Service Worker Bug gefixt (unbalancierte Klammern Zeile 1539)',
+    'Alle Schaltflächen funktionieren wieder'
+  ]},
+  {v:'4.0', d:'2026-08-08', items:[
+    'Komplett neu aufgebaut: saubere funktionierende Version',
+    'Cache-Breaker Meta-Tags im HEAD',
+    'Service Worker: HTML + CSS nicht gecacht, nur JS + Assets'
+  ]},
+  {v:'3.2', d:'2026-08-03', items:[
+    'KRITISCH: Service Worker mit absoluten /rezeptbuch/ Pfaden',
+    'KRITISCH: Manifest mit 3 SVG Icons (192x512x512 maskable)',
+    'KRITISCH: start_url und scope korrekt auf /rezeptbuch/',
+    'KRITISCH: SHELL cached jetzt /rezeptbuch/index.html offline',
+    'KRITISCH: rezepte.json wird jetzt korrekt gecacht',
+    'Chrome sollte JETZT "Installieren" zeigen! 🎉'
+  ]},
+  {v:'3.1', d:'2026-08-03', items:[
+    'Debug-Mode: Console zeigt Service Worker Status und alle Fehler',
+    'Hilft beim Troubleshooting der PWA-Installation (F12 > Console)',
+    'Bessere Fehlerausgabe wenn sw.js, manifest.json oder Icons fehlen'
+  ]},
+  {v:'3.0', d:'2026-08-03', items:[
+    'Neu: Icons für Kategorien (Schnell 🚀, Wochenende 🍷, Beilage 🥗, Dessert 🎂).',
+    'Versionsverwaltung: Klick auf die Versionsnummer zeigt alle Änderungen.',
+    'Neu: Test-Buttons für GitHub-Pfad und API-Key – Validierung vor dem Speichern.',
+    'Auto-Update: App aktualisiert sich automatisch wenn neue Version verfügbar ist.'
+  ]},
+  {v:'2.7', d:'2026-07-16', items:[
+    'Neu: Direkter Bild-Upload ohne Scan – Button im Rezept-Formular für komfortablen Bild-Import.',
+    'Bilder hochladen, Live-Vorschau, automatisches Feld-Ausfüllen.'
+  ]},
+  {v:'2.6', d:'2026-07-16', items:[
+    'Neu: Übersicht der Versionsänderungen hier in den Einstellungen.'
+  ]},
+  {v:'2.5', d:'2026-07-16', items:[
+    'Scan-Hinweis blinkt rot mit Sekundenzähler, solange die KI liest.',
+    'Bild-Upload zeigt eigenen Fortschrittshinweis.',
+    'Fehler bleiben rot stehen statt zu blinken.'
+  ]},
+  {v:'2.4', d:'2026-07-16', items:[
+    'Gescanntes Foto wird beim Speichern automatisch nach bilder/<name>.jpg ins Repo geladen.',
+    'Bilder werden vorher auf 1200px verkleinert (spart Speicher).',
+    'Dateiname wird aus dem Rezeptnamen gebildet (Umlaute korrekt: ä→ae).'
+  ]},
+  {v:'2.3', d:'2026-07-16', items:[
+    'Neu: Rezept-Scan per Foto oder PDF mit KI – füllt das Formular automatisch aus.',
+    'API-Key und Modellwahl (Sonnet/Opus) in den Einstellungen.',
+    'Kategorie, Portionen und Zeit werden automatisch erkannt.'
+  ]},
+  {v:'2.2', d:'2026-07-05', items:[
+    'Android schlägt in Eingabefeldern keine Passwörter mehr vor.'
+  ]},
+  {v:'2.1', d:'2026-07-05', items:[
+    'Neu: GitHub-Schreibzugriff mit Token – Bearbeiten, Neu und Löschen landen direkt im Repo.',
+    'Automatischer Upload nach jeder Änderung.',
+    'Beim Start wird vom Repo geladen statt lokale Änderungen zu überschreiben.'
+  ]},
+  {v:'2.0', d:'2026-07-04', items:[
+    'Rezepte bearbeiten, neu anlegen und löschen.',
+    'GitHub-Sync (lesend), Portionenrechner, Timer, Einkaufsliste, PDF-Export.'
+  ]}
+];
+function toggleChangelog(){
+  const box=document.getElementById('changelog'), arr=document.getElementById('clArrow');
+  if(!box) return;
+  const open=box.hidden;
+  box.hidden=!open;
+  if(arr) arr.textContent=open?'▾':'▸';
+  if(open&&!box.dataset.filled){ renderChangelog(); box.dataset.filled='1'; }
+}
+function renderChangelog(){
+  const box=document.getElementById('changelog'); if(!box) return;
+  box.innerHTML=CHANGELOG.map(c=>{
+    const d=new Date(c.d+'T12:00:00');
+    const ds=isNaN(d)?c.d:d.toLocaleDateString('de-CH',{day:'2-digit',month:'2-digit',year:'numeric'});
+    return '<div class="clItem"><div class="clHead"><span class="clVer'+(c.v===VERSION?' cur':'')+'">v'+esc(c.v)+'</span><span class="clDate">'+esc(ds)+'</span></div>'
+      +'<ul class="clList">'+c.items.map(i=>'<li>'+esc(i)+'</li>').join('')+'</ul></div>';
+  }).join('');
+}
+let DB = { recipes:[], shopping:[] };
+let LOCAL = { ratings:{}, notes:{}, favs:{} }; // lokale Zusatzdaten, über Rezeptname verknüpft
+const CATS = ['Schnell','Wochenende','Beilage','Dessert'];
+const FILTERS = ['Alle'].concat(CATS);
+let editRecipeId=null, viewRecipeId=null, viewPortions=null, filterCat='Alle';
+let searchTerm='';
+const timers = {}; // index -> {remaining, running, intervalId}
+
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function nameKey(n){return String(n||'').trim().toLowerCase()}
+
+/* ---------- Speicherung ---------- */
+function persist(){
+  try{
+    localStorage.setItem('rezeptbuch1', JSON.stringify(DB));
+    localStorage.setItem('rezeptbuchLocal1', JSON.stringify(LOCAL));
+  }catch(e){}
+}
+function restore(){
+  try{
+    const loc = localStorage.getItem('rezeptbuchLocal1');
+    if(loc){ LOCAL = Object.assign({ratings:{},notes:{},favs:{}}, JSON.parse(loc)); }
+    let raw = localStorage.getItem('rezeptbuch1');
+    if(!raw){
+      raw = localStorage.getItem('kochplaner1');
+      if(raw){ const old=JSON.parse(raw); if(old&&old.recipes){ mergeDB({recipes:old.recipes,shopping:old.shopping||[]}); persist(); } return; }
+    }
+    if(raw){ const d=JSON.parse(raw); if(d&&d.recipes) mergeDB(d); }
+  }catch(e){}
+}
+function mergeDB(d){
+  const keepSrc=DB.src, keepSync=DB.lastSync;
+  DB=Object.assign({recipes:[],shopping:[]},d);
+  DB.recipes=(DB.recipes||[]).map(r=>Object.assign({},r));
+  DB.shopping=DB.shopping||[];
+  if(DB.src===undefined && keepSrc) DB.src=keepSrc;
+  if(DB.lastSync===undefined && keepSync) DB.lastSync=keepSync;
+  // Alte fav-Felder in LOCAL migrieren
+  DB.recipes.forEach(r=>{ if(r.fav){ LOCAL.favs[nameKey(r.name)]=true; } });
+  delete DB.week;
+}
+
+/* ---------- lokale Zusatzdaten ---------- */
+function isFav(r){ return !!LOCAL.favs[nameKey(r.name)]; }
+function getRating(r){ return LOCAL.ratings[nameKey(r.name)]||0; }
+function getNote(r){ return LOCAL.notes[nameKey(r.name)]||''; }
+
+/* ---------- Kopf ---------- */
+function renderHeader(){
+  document.getElementById('hRecipes').textContent=DB.recipes.length;
+  document.getElementById('hFavs').textContent=DB.recipes.filter(isFav).length;
+  document.getElementById('hOpen').textContent=DB.shopping.filter(s=>!s.done).length;
+  // Versionsnummer + Datenstand (letzter Sync) im Header
+  const sub=document.getElementById('hdSub');
+  if(sub){
+    let txt='v'+VERSION;
+    if(DB.lastSync){
+      const d=new Date(DB.lastSync);
+      txt+=' · Stand '+d.toLocaleDateString('de-CH',{day:'2-digit',month:'2-digit',year:'2-digit'});
+    }
+    sub.textContent=txt;
+  }
+  const cv=document.getElementById('clVer'); if(cv) cv.textContent=VERSION;
+}
+
+/* ---------- Liste ---------- */
+function recipeById(id){return DB.recipes.find(r=>r.id===id)||null}
+function catIcon(c){return {Schnell:'🚀',Wochenende:'🍷',Beilage:'🥗',Dessert:'🎂'}[c]||'⚡'}
+function catClass(c){return {Schnell:'schnell',Wochenende:'wochenende',Beilage:'beilage',Dessert:'dessert'}[c]||'schnell'}
+function onSearch(){
+  searchTerm=document.getElementById('search').value;
+  document.getElementById('searchClr').classList.toggle('show', !!searchTerm);
+  renderRecipes();
+}
+function clearSearch(){ document.getElementById('search').value=''; searchTerm=''; document.getElementById('searchClr').classList.remove('show'); renderRecipes(); }
+function renderChips(){
+  document.getElementById('chips').innerHTML=FILTERS.map((c,i)=>
+    '<button class="chip'+(filterCat===c?' active':'')+'" onclick="setFilter('+i+')">'+c+'</button>').join('');
+}
+function setFilter(i){ filterCat=FILTERS[i]; renderChips(); renderRecipes(); }
+
+function filterAndSort(list){
+  const q=searchTerm.toLowerCase().trim();
+  let out=[...list];
+  if(filterCat!=='Alle') out=out.filter(r=>r.cat===filterCat);
+  if(q) out=out.filter(r=> r.name.toLowerCase().includes(q) || (r.ings||[]).some(g=>(g.n||'').toLowerCase().includes(q)));
+  const sort=document.getElementById('sortSel').value;
+  out.sort((a,b)=>{
+    if(sort==='rating') return getRating(b)-getRating(a) || a.name.localeCompare(b.name);
+    if(sort==='time') return (a.time||9999)-(b.time||9999) || a.name.localeCompare(b.name);
+    if(sort==='fav') return (isFav(b)?1:0)-(isFav(a)?1:0) || a.name.localeCompare(b.name);
+    return a.name.localeCompare(b.name);
+  });
+  return out;
+}
+function entryHTML(r){
+  const rt=getRating(r);
+  const meta=[ (r.portions||'?')+' Port.', (r.time?r.time+' Min.':null), (r.src||null), (rt?('★ '+rt):null) ].filter(Boolean).join(' · ');
+  return '<div class="entry" onclick="openView(\''+r.id+'\')">'+
+    (r.img?'<img class="th" loading="lazy" src="'+esc(r.img)+'" alt="" onerror="this.remove()">':'')+
+    '<span class="tag '+catClass(r.cat)+'">'+catIcon(r.cat)+' '+esc(r.cat.toUpperCase())+'</span>'+
+    '<div class="mid"><div class="t1">'+esc(r.name)+'</div><div class="t2">'+meta+'</div></div>'+
+    (isFav(r)?'<span class="fav">★</span>':'')+'</div>';
+}
+function renderRecipes(){
+  const el=document.getElementById('recipeList');
+  if(!DB.recipes.length){ el.innerHTML='<div class="empty">Noch keine Rezepte.<br>Tippe auf <b>+</b> oder richte den GitHub-Sync ein.</div>'; return; }
+  const list=filterAndSort(DB.recipes);
+  el.innerHTML=list.length? list.map(entryHTML).join('') : '<div class="empty">Kein Rezept passt zu dieser Auswahl.</div>';
+}
+function renderFavs(){
+  const el=document.getElementById('favList');
+  const list=DB.recipes.filter(isFav).sort((a,b)=>a.name.localeCompare(b.name));
+  el.innerHTML=list.length? list.map(entryHTML).join('') : '<div class="empty">Noch keine Favoriten.<br>Tippe in einem Rezept auf den Stern.</div>';
+}
+
+/* ---------- Einheiten & Skalierung ---------- */
+const FRAC={'½':0.5,'¼':0.25,'¾':0.75,'⅓':1/3,'⅔':2/3,'⅛':0.125};
+function parseNum(q){
+  if(q==null||q==='') return null;
+  let s=String(q).trim().replace(',','.');
+  // gemischte Brüche wie "1 ½"
+  let total=0, matched=false;
+  const parts=s.split(/\s+/);
+  for(const p of parts){
+    if(FRAC[p]!=null){ total+=FRAC[p]; matched=true; }
+    else if(/^\d+(\.\d+)?$/.test(p)){ total+=parseFloat(p); matched=true; }
+    else if(/^\d+\/\d+$/.test(p)){ const[a,b]=p.split('/'); total+=parseFloat(a)/parseFloat(b); matched=true; }
+    else { return {num:null,raw:q}; } // enthält Text -> nicht skalierbar
+  }
+  return matched? {num:total,raw:q} : {num:null,raw:q};
+}
+function fmtNum(v){
+  if(v===Math.round(v)) return String(Math.round(v));
+  // schöne Brüche
+  const map=[[0.5,'½'],[0.25,'¼'],[0.75,'¾'],[1/3,'⅓'],[2/3,'⅔']];
+  const whole=Math.floor(v), frac=v-whole;
+  for(const[f,s] of map){ if(Math.abs(frac-f)<0.04) return (whole?whole+' ':'')+s; }
+  return (Math.round(v*100)/100).toLocaleString('de-CH');
+}
+// Einheiten-Normalisierung für Skalierung (intern rechnen, sinnvoll anzeigen)
+const VOL={ml:1,dl:100,l:1000};
+const WT={g:1,kg:1000};
+const SPOON={tl:1,el:3}; // 1 EL = 3 TL
+function scaleIng(g, factor){
+  const p=parseNum(g.q);
+  const u=(g.u||'').trim();
+  if(!p || p.num==null){ return {q:g.q, u:g.u}; } // leer oder Text wie "wenig" unverändert
+  let val=p.num*factor;
+  let unit=u;
+  const ul=u.toLowerCase();
+  // Umrechnen für schönere Anzeige
+  if(VOL[ul]!=null){
+    let ml=val*VOL[ul];
+    if(ml>=1000){ val=ml/1000; unit='l'; }
+    else if(ml>=100 && ml%100===0){ val=ml/100; unit='dl'; }
+    else if(ml>=100){ val=ml/100; unit='dl'; }
+    else { val=ml; unit='ml'; }
+  } else if(WT[ul]!=null){
+    let g_=val*WT[ul];
+    if(g_>=1000){ val=g_/1000; unit='kg'; } else { val=g_; unit='g'; }
+  } else if(SPOON[ul]!=null){
+    // EL/TL: bei <1 EL in TL umrechnen
+    let tl=val*SPOON[ul];
+    if(unit.toLowerCase()==='el' && tl<3){ val=tl; unit='TL'; }
+    else unit=u;
+  }
+  return {q:fmtNum(val), u:unit};
+}
+
+/* ---------- Detailansicht ---------- */
+function openView(id){
+  const r=recipeById(id); if(!r) return;
+  viewRecipeId=id; viewPortions=r.portions||4;
+  renderView();
+  document.getElementById('viewOverlay').classList.add('open');
+}
+function renderView(){
+  const r=recipeById(viewRecipeId); if(!r) return;
+  const base=r.portions||4, factor=viewPortions/base;
+  document.getElementById('vName').textContent=r.name;
+  document.getElementById('vMeta').textContent=[r.cat,(r.time?r.time+' Min.':null),(r.src?'Quelle: '+r.src:null),'Grundrezept für '+base+' Port.'].filter(Boolean).join(' · ');
+  document.getElementById('vFav').classList.toggle('on', isFav(r));
+  const im=document.getElementById('vImg');
+  if(r.img){ im.hidden=false; im.src=r.img; } else { im.hidden=true; im.removeAttribute('src'); }
+  document.getElementById('vPortions').textContent=viewPortions;
+  // Zutaten
+  document.getElementById('vIngs').innerHTML=(r.ings||[]).length
+    ? r.ings.map(g=>{const s=scaleIng(g,factor);return '<div class="ingline"><span class="qy">'+esc([s.q,s.u].filter(Boolean).join(' '))+'</span><span>'+esc(g.n)+'</span></div>';}).join('')
+    : '<div class="empty" style="padding:14px 4px">Keine Zutaten erfasst.</div>';
+  renderSteps(r);
+  renderNutri(r, factor);
+  renderRating(r);
+  document.getElementById('vNote').value=getNote(r);
+}
+function changePortions(d){ viewPortions=Math.max(1,Math.min(99,viewPortions+d)); renderView(); }
+function toggleFav(){
+  const r=recipeById(viewRecipeId); if(!r) return;
+  const k=nameKey(r.name);
+  if(LOCAL.favs[k]) delete LOCAL.favs[k]; else LOCAL.favs[k]=true;
+  persist(); renderAll(); document.getElementById('vFav').classList.toggle('on', isFav(r));
+}
+function closeView(){ document.getElementById('viewOverlay').classList.remove('open'); stopAllTimers(); viewRecipeId=null; }
+function editFromView(){ const id=viewRecipeId; closeView(); openRecipeSheet(id); }
+
+/* ---------- Schritte + Timer ---------- */
+function splitSteps(steps){
+  if(!steps) return [];
+  let t=steps.trim();
+  // Nach "1. 2. 3." oder Zeilenumbrüchen aufteilen
+  let parts;
+  if(/(^|\n)\s*\d+\.\s/.test(t)){
+    parts=t.split(/(?:^|\n)\s*\d+\.\s/).map(s=>s.trim()).filter(Boolean);
+  } else {
+    parts=t.split(/\n{1,}/).map(s=>s.trim()).filter(Boolean);
+  }
+  return parts;
+}
+function findStepTime(text){
+  // erste "X min/Minuten" oder "X Std." im Schritt
+  let m=text.match(/(\d+)\s*(?:min|minuten)\b/i);
+  if(m) return parseInt(m[1])*60;
+  m=text.match(/(\d+(?:[.,]\d+)?)\s*(?:std|stunden|h)\b/i);
+  if(m) return Math.round(parseFloat(m[1].replace(',','.'))*3600);
+  return null;
+}
+function renderSteps(r){
+  stopAllTimers();
+  const steps=splitSteps(r.steps);
+  const el=document.getElementById('vSteps');
+  if(!steps.length){ el.innerHTML='<div class="empty" style="padding:10px 4px">Keine Zubereitung erfasst.</div>'; return; }
+  el.innerHTML=steps.map((s,i)=>{
+    const secs=findStepTime(s);
+    const timerBtn=secs? '<div><button class="timerbtn" id="tb'+i+'" onclick="toggleTimer('+i+','+secs+')">⏱ '+fmtClock(secs)+'</button></div>':'';
+    return '<div class="step"><span class="no">'+(i+1)+'</span><div class="body">'+esc(s)+timerBtn+'</div></div>';
+  }).join('');
+}
+function fmtClock(sec){ const m=Math.floor(sec/60), s=sec%60; return m+':'+String(s).padStart(2,'0'); }
+function toggleTimer(i, secs){
+  const btn=document.getElementById('tb'+i); if(!btn) return;
+  let t=timers[i];
+  if(!t){ t=timers[i]={remaining:secs, running:false, intervalId:null}; }
+  if(t.running){
+    clearInterval(t.intervalId); t.running=false; btn.classList.remove('run');
+    btn.innerHTML='⏱ '+fmtClock(t.remaining)+' ▶';
+  } else {
+    t.running=true; btn.classList.add('run');
+    t.intervalId=setInterval(()=>{
+      t.remaining--;
+      if(t.remaining<=0){
+        clearInterval(t.intervalId); t.running=false; t.remaining=secs;
+        btn.classList.remove('run'); btn.innerHTML='⏱ fertig!';
+        toast('Timer abgelaufen!');
+        try{ if(navigator.vibrate) navigator.vibrate([200,100,200]); }catch(e){}
+        return;
+      }
+      btn.innerHTML='⏱ '+fmtClock(t.remaining)+' ⏸';
+    },1000);
+    btn.innerHTML='⏱ '+fmtClock(t.remaining)+' ⏸';
+  }
+}
+function stopAllTimers(){ for(const k in timers){ if(timers[k].intervalId) clearInterval(timers[k].intervalId); delete timers[k]; } }
+
+/* ---------- Nährwerte (Open Food Facts) ---------- */
+const nutriCache={};
+function renderNutri(r, factor){
+  const el=document.getElementById('vNutri');
+  if(r.nutri){ // manuell hinterlegt (pro Portion)
+    el.innerHTML=nutriBoxes(r.nutri); return;
+  }
+  el.innerHTML='<div class="card" style="margin-bottom:0"><div class="hint" id="nutriHint" style="margin:0">Nährwerte werden geschätzt…</div></div>';
+  estimateNutri(r);
+}
+function nutriBoxes(n){
+  const b=(v,l,u)=>'<div class="nb"><div class="nv">'+(v!=null?Math.round(v)+(u||''):'–')+'</div><div class="nl">'+l+'</div></div>';
+  return '<div class="nutri">'+b(n.kcal,'kcal','')+b(n.prot,'Protein','g')+b(n.fat,'Fett','g')+b(n.carb,'KH','g')+'</div>'+
+    '<div class="hint" style="margin-top:6px">'+(n.src||'')+'</div>';
+}
+async function estimateNutri(r){
+  const key=nameKey(r.name);
+  if(nutriCache[key]){ if(viewRecipeId===r.id) document.getElementById('vNutri').innerHTML=nutriBoxes(nutriCache[key]); return; }
+  // Summiere über Zutaten via Open Food Facts (nur grobe Schätzung)
+  let kcal=0,prot=0,fat=0,carb=0,hits=0,grams=0;
+  const ings=(r.ings||[]).slice(0,14);
+  try{
+    for(const g of ings){
+      const grAmount=ingToGrams(g);
+      if(grAmount==null) continue;
+      const per100=await offLookup(g.n);
+      if(!per100) continue;
+      hits++; grams+=grAmount;
+      kcal+=per100.kcal*grAmount/100; prot+=per100.prot*grAmount/100;
+      fat+=per100.fat*grAmount/100; carb+=per100.carb*grAmount/100;
+    }
+  }catch(e){}
+  const portions=r.portions||4;
+  let result;
+  if(hits>=2){
+    result={kcal:kcal/portions, prot:prot/portions, fat:fat/portions, carb:carb/portions,
+            src:'Geschätzt via Open Food Facts ('+hits+' von '+ings.length+' Zutaten erkannt) – Richtwert pro Portion.'};
+  } else {
+    result={kcal:null,prot:null,fat:null,carb:null,
+            src:'Keine verlässliche Schätzung möglich (zu wenige Zutaten in Open Food Facts gefunden).'};
+  }
+  nutriCache[key]=result;
+  if(viewRecipeId===r.id){ const el=document.getElementById('vNutri'); if(el) el.innerHTML=nutriBoxes(result); }
+}
+// grobe Mengen->Gramm Heuristik
+function ingToGrams(g){
+  const p=parseNum(g.q); const u=(g.u||'').toLowerCase();
+  if(!p || p.num==null) return null;
+  if(WT[u]!=null) return p.num*WT[u];
+  if(VOL[u]!=null) return p.num*VOL[u]; // ml~g Näherung
+  if(u==='el') return p.num*15;
+  if(u==='tl') return p.num*5;
+  if(u===''||u==='stück'||u==='stk') return p.num*80; // grobe Stückannahme
+  return null;
+}
+async function offLookup(name){
+  const clean=String(name).split(',')[0].replace(/\(.*?\)/g,'').trim();
+  if(!clean) return null;
+  const ck=clean.toLowerCase();
+  if(offLookup.cache && offLookup.cache[ck]!==undefined) return offLookup.cache[ck];
+  if(!offLookup.cache) offLookup.cache={};
+  try{
+    const url='https://world.openfoodfacts.org/cgi/search.pl?search_terms='+encodeURIComponent(clean)+
+      '&search_simple=1&action=process&json=1&page_size=1&fields=nutriments';
+    const res=await fetch(url);
+    if(!res.ok) throw 0;
+    const d=await res.json();
+    const n=d.products && d.products[0] && d.products[0].nutriments;
+    if(!n){ offLookup.cache[ck]=null; return null; }
+    const out={
+      kcal:+n['energy-kcal_100g']||0, prot:+n['proteins_100g']||0,
+      fat:+n['fat_100g']||0, carb:+n['carbohydrates_100g']||0 };
+    offLookup.cache[ck]=out; return out;
+  }catch(e){ offLookup.cache[ck]=null; return null; }
+}
+
+/* ---------- Bewertung & Notiz ---------- */
+function renderRating(r){
+  const cur=getRating(r);
+  let html='';
+  for(let i=1;i<=10;i++) html+='<button class="'+(i<=cur?'on':'')+'" onclick="setRating('+i+')">'+i+'</button>';
+  document.getElementById('vRating').innerHTML=html;
+}
+function setRating(v){
+  const r=recipeById(viewRecipeId); if(!r) return;
+  const k=nameKey(r.name);
+  if(getRating(r)===v) delete LOCAL.ratings[k]; else LOCAL.ratings[k]=v;
+  persist(); renderRating(r); renderAll();
+}
+function saveNote(){
+  const r=recipeById(viewRecipeId); if(!r) return;
+  const k=nameKey(r.name); const v=document.getElementById('vNote').value;
+  if(v.trim()) LOCAL.notes[k]=v; else delete LOCAL.notes[k];
+  persist();
+}
+
+/* ---------- Einkaufsliste ---------- */
+function ingsToShop(){
+  const r=recipeById(viewRecipeId); if(!r) return;
+  const factor=viewPortions/(r.portions||4);
+  let added=0;
+  (r.ings||[]).forEach(g=>{ if(!g.n) return; const s=scaleIng(g,factor);
+    DB.shopping.push({id:uid(),q:s.q,u:s.u||'',n:g.n,done:false}); added++; });
+  if(!added){ toast('Keine Zutaten'); return; }
+  persist(); renderAll(); toast(added+(added===1?' Zutat':' Zutaten')+' auf der Einkaufsliste');
+}
+function renderShop(){
+  const el=document.getElementById('shopList');
+  if(!DB.shopping.length){ el.innerHTML='<div class="empty" style="padding:20px 8px">Die Liste ist leer.</div>'; return; }
+  const sorted=[...DB.shopping].sort((a,b)=>(a.done===b.done?0:a.done?1:-1)||a.n.localeCompare(b.n));
+  el.innerHTML=sorted.map(s=>'<div class="shoprow'+(s.done?' done':'')+'">'+
+    '<input type="checkbox"'+(s.done?' checked':'')+' onchange="toggleShop(\''+s.id+'\')">'+
+    '<span class="txt">'+esc(s.n)+'</span><span class="qty">'+esc([s.q,s.u].filter(Boolean).join(' '))+'</span>'+
+    '<button class="rm" onclick="removeShop(\''+s.id+'\')" aria-label="entfernen">×</button></div>').join('');
+}
+function toggleShop(id){ const s=DB.shopping.find(x=>x.id===id); if(s){s.done=!s.done; persist(); renderAll();} }
+function removeShop(id){ DB.shopping=DB.shopping.filter(x=>x.id!==id); persist(); renderAll(); }
+function addShopItem(){ const inp=document.getElementById('shopNew'); const n=inp.value.trim(); if(!n) return;
+  DB.shopping.push({id:uid(),q:'',u:'',n,done:false}); inp.value=''; persist(); renderAll(); }
+function clearDone(){ const n=DB.shopping.filter(s=>s.done).length; if(!n){toast('Keine erledigten Posten');return;}
+  DB.shopping=DB.shopping.filter(s=>!s.done); persist(); renderAll(); toast(n+' Posten entfernt'); }
+
+/* ---------- Erfassen/Bearbeiten ---------- */
+function addIngRow(q,u,n){
+  const div=document.createElement('div'); div.className='ingrow';
+  div.innerHTML='<input class="q" placeholder="500" value="'+esc(q||'')+'" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" inputmode="text"><input class="u" placeholder="g" value="'+esc(u||'')+'" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"><input class="n" placeholder="Zutat" value="'+esc(n||'')+'" autocomplete="off" autocorrect="off" autocapitalize="sentences" spellcheck="false"><button class="rm" onclick="this.parentNode.remove()">×</button>';
+  document.getElementById('ingRows').appendChild(div);
+}
+function openRecipeSheet(id){
+  editRecipeId=id||null;
+  pendingImg=null;
+  clearImageUpload();
+  renderScanBox();
+  const _h=document.getElementById('aiScanHint'); if(_h){ _h.textContent=''; _h.classList.remove('busy','err'); }
+  document.getElementById('recTitle').textContent=editRecipeId?'Rezept bearbeiten':'Neues Rezept';
+  document.getElementById('rcSaveBtn').textContent=editRecipeId?'Änderungen speichern':'Rezept speichern';
+  document.getElementById('rcDeleteBtn').hidden=!editRecipeId;
+  ['rcName','rcPortions','rcTime','rcImg','rcSrc','rcSteps'].forEach(k=>document.getElementById(k).value='');
+  document.getElementById('rcCat').value='Schnell';
+  document.getElementById('ingRows').innerHTML='';
+  if(editRecipeId){
+    const r=recipeById(editRecipeId);
+    if(r){ document.getElementById('rcName').value=r.name; document.getElementById('rcCat').value=r.cat;
+      document.getElementById('rcPortions').value=r.portions||''; document.getElementById('rcTime').value=r.time||'';
+      document.getElementById('rcImg').value=r.img||''; document.getElementById('rcSrc').value=r.src||''; document.getElementById('rcSteps').value=r.steps||'';
+      (r.ings||[]).forEach(g=>addIngRow(g.q,g.u,g.n)); }
+  }
+  if(!document.querySelector('#ingRows .ingrow')){ addIngRow();addIngRow();addIngRow(); }
+  document.getElementById('recOverlay').classList.add('open');
+}
+function closeRecipe(){ document.getElementById('recOverlay').classList.remove('open'); editRecipeId=null; pendingImg=null; clearImageUpload(); }
+async function saveRecipe(){
+  const name=document.getElementById('rcName').value.trim();
+  if(!name){ toast('Bitte einen Namen eingeben'); return; }
+  const ings=[...document.querySelectorAll('#ingRows .ingrow')].map(row=>{
+    const[q,u,n]=row.querySelectorAll('input'); return {q:q.value.trim(),u:u.value.trim(),n:n.value.trim()};
+  }).filter(g=>g.n);
+  // Foto aus dem Scan hochladen (falls vorhanden) und img-Pfad übernehmen
+  let img=document.getElementById('rcImg').value.trim();
+  if(pendingImg){
+    const btn=document.getElementById('rcSaveBtn'); const old=btn?btn.textContent:'';
+    if(btn){ btn.disabled=true; btn.textContent='Bild wird hochgeladen…'; }
+    const p=await commitPendingImage(name);
+    if(btn){ btn.disabled=false; btn.textContent=old; }
+    if(p) img=p;
+  }
+  const obj={ id:editRecipeId||uid(), name, cat:document.getElementById('rcCat').value,
+    portions:parseInt(document.getElementById('rcPortions').value)||null,
+    time:parseInt(document.getElementById('rcTime').value)||null,
+    ings, steps:document.getElementById('rcSteps').value.trim(),
+    img, src:document.getElementById('rcSrc').value.trim() };
+  if(editRecipeId){ const i=DB.recipes.findIndex(r=>r.id===editRecipeId); DB.recipes[i]=obj; }
+  else DB.recipes.push(obj);
+  persist(); renderAll(); closeRecipe(); toast(editRecipeId?'Rezept aktualisiert':'Rezept gespeichert'); ghAutoPush();
+}
+function deleteRecipe(){
+  if(!editRecipeId) return; if(!confirm('Dieses Rezept löschen?')) return;
+  DB.recipes=DB.recipes.filter(r=>r.id!==editRecipeId);
+  persist(); renderAll(); closeRecipe(); toast('Rezept gelöscht'); ghAutoPush();
+}
+
+/* ---------- Tabs ---------- */
+document.querySelectorAll('nav button').forEach(b=>{
+  b.onclick=()=>{ document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active')); b.classList.add('active');
+    ['recipes','favs','shop','data'].forEach(t=>document.getElementById('tab-'+t).hidden=t!==b.dataset.tab);
+    if(b.dataset.tab==='favs') renderFavs(); };
+});
+document.getElementById('shopNew').addEventListener('keydown',e=>{ if(e.key==='Enter') addShopItem(); });
+
+/* ---------- GitHub-Sync ---------- */
+function setSrc(v){ DB.src=(v||'').trim(); persist(); if(DB.src) syncFromSource(true); else { renderSyncStatus(); toast('Sync deaktiviert'); } }
+async function syncFromSource(manual){
+  const src=(DB.src||'').trim(); if(!src){ if(manual) toast('Keine Quelle hinterlegt'); return; }
+  const url=src+(src.includes('?')?'&':'?')+'v='+Date.now();
+  try{
+    const res=await fetch(url,{cache:'no-store'}); if(!res.ok) throw 0;
+    const d=await res.json();
+    const list=Array.isArray(d)?d:(Array.isArray(d.recipes)?d.recipes:null); if(!list) throw 0;
+    DB.recipes=list.filter(x=>x&&x.name).map(x=>Object.assign({id:uid()},x));
+    DB.lastSync=new Date().toISOString(); persist(); renderAll();
+    if(manual) toast(DB.recipes.length+' Rezepte von der Quelle geladen');
+  }catch(e){ if(manual) toast('Aktualisierung fehlgeschlagen – lokaler Stand bleibt'); renderSyncStatus(); }
+}
+function renderSyncStatus(){
+  const el=document.getElementById('syncStatus'); if(!el) return;
+  if(!DB.src){ el.textContent='Kein Sync aktiv.'; return; }
+  el.textContent=DB.lastSync? 'Zuletzt aktualisiert: '+new Date(DB.lastSync).toLocaleString('de-CH',{dateStyle:'medium',timeStyle:'short'}) : 'Noch nie aktualisiert.';
+}
+
+/* ---------- GitHub-Schreibzugriff (Token) ---------- */
+// Config liegt in DB.gh (owner/repo/branch/path). Token separat in localStorage (nicht exportiert).
+function ghCfg(){ return Object.assign({owner:'',repo:'',branch:'main',path:'rezepte.json',sha:null}, DB.gh||{}); }
+function ghToken(){ try{ return localStorage.getItem('rezeptbuchGhToken')||''; }catch(e){ return ''; } }
+function ghReady(){ const c=ghCfg(); return !!(c.owner&&c.repo&&c.path&&ghToken()); }
+function setGh(){
+  DB.gh=Object.assign(ghCfg(),{
+    owner:(document.getElementById('ghOwner').value||'').trim(),
+    repo:(document.getElementById('ghRepo').value||'').trim(),
+    branch:(document.getElementById('ghBranch').value||'').trim()||'main',
+    path:(document.getElementById('ghPath').value||'').trim()||'rezepte.json'
+  });
+  const tok=(document.getElementById('ghToken').value||'').trim();
+  try{ if(tok) localStorage.setItem('rezeptbuchGhToken',tok); }catch(e){}
+  persist(); renderGhStatus();
+}
+function renderGhStatus(msg){
+  const el=document.getElementById('ghStatus'); if(!el) return;
+  if(msg){ el.textContent=msg; return; }
+  if(!ghReady()){ el.textContent='Schreib-Sync nicht vollständig eingerichtet.'; return; }
+  const c=ghCfg();
+  el.textContent='Bereit: '+c.owner+'/'+c.repo+' ('+c.branch+') · '+c.path+(DB.ghLast?(' · zuletzt '+new Date(DB.ghLast).toLocaleString('de-CH',{dateStyle:'short',timeStyle:'short'})):'');
+}
+// UTF-8-sicheres Base64 (btoa kann kein Ü/ä)
+function b64encode(str){ return btoa(unescape(encodeURIComponent(str))); }
+function b64decode(b64){ return decodeURIComponent(escape(atob(b64))); }
+function ghRecipesForExport(){
+  // nur echte Rezeptfelder, ohne lokale id
+  return DB.recipes.map(r=>{ const o=Object.assign({},r); delete o.id; return o; });
+}
+async function ghGetSha(){
+  const c=ghCfg();
+  const url='https://api.github.com/repos/'+c.owner+'/'+c.repo+'/contents/'+encodeURIComponent(c.path)+'?ref='+encodeURIComponent(c.branch);
+  const res=await fetch(url,{headers:{'Authorization':'Bearer '+ghToken(),'Accept':'application/vnd.github+json'}});
+  if(res.status===404) return null;      // Datei existiert noch nicht
+  if(!res.ok) throw new Error('GET '+res.status);
+  const j=await res.json(); return j.sha||null;
+}
+let ghPushing=false;
+async function pushToGitHub(manual){
+  if(!ghReady()){ if(manual) toast('Bitte Owner, Repo, Pfad und Token ausfüllen'); return; }
+  if(ghPushing){ return; }
+  ghPushing=true; if(manual) renderGhStatus('Lädt hoch…');
+  try{
+    const c=ghCfg();
+    let sha=c.sha;
+    try{ sha=await ghGetSha(); }catch(e){ /* fällt auf gespeicherten sha zurück */ }
+    const body={
+      message:'Rezepte aktualisiert via App '+new Date().toISOString(),
+      content:b64encode(JSON.stringify({recipes:ghRecipesForExport()},null,2)),
+      branch:c.branch
+    };
+    if(sha) body.sha=sha;
+    const url='https://api.github.com/repos/'+c.owner+'/'+c.repo+'/contents/'+encodeURIComponent(c.path);
+    const res=await fetch(url,{method:'PUT',headers:{'Authorization':'Bearer '+ghToken(),'Accept':'application/vnd.github+json','Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!res.ok){ const t=await res.text(); throw new Error('PUT '+res.status+' '+t.slice(0,120)); }
+    const j=await res.json();
+    DB.gh=Object.assign(ghCfg(),{sha:(j.content&&j.content.sha)||null});
+    DB.ghLast=new Date().toISOString(); persist(); renderGhStatus();
+    if(manual) toast('Ins Repo hochgeladen');
+  }catch(e){
+    renderGhStatus('Upload fehlgeschlagen: '+e.message);
+    if(manual) toast('Upload fehlgeschlagen – lokal gespeichert');
+  }finally{ ghPushing=false; }
+}
+async function pullFromGitHub(manual){
+  if(!ghReady()){ if(manual) toast('Bitte Owner, Repo, Pfad und Token ausfüllen'); return; }
+  if(manual) renderGhStatus('Lädt vom Repo…');
+  try{
+    const c=ghCfg();
+    const url='https://api.github.com/repos/'+c.owner+'/'+c.repo+'/contents/'+encodeURIComponent(c.path)+'?ref='+encodeURIComponent(c.branch)+'&v='+Date.now();
+    const res=await fetch(url,{cache:'no-store',headers:{'Authorization':'Bearer '+ghToken(),'Accept':'application/vnd.github+json'}});
+    if(!res.ok) throw new Error('GET '+res.status);
+    const j=await res.json();
+    const txt=b64decode((j.content||'').replace(/\n/g,''));
+    const d=JSON.parse(txt);
+    const list=Array.isArray(d)?d:(Array.isArray(d.recipes)?d.recipes:null); if(!list) throw new Error('Kein gültiges Rezept-JSON');
+    DB.recipes=list.filter(x=>x&&x.name).map(x=>Object.assign({id:uid()},x));
+    DB.gh=Object.assign(ghCfg(),{sha:j.sha||null});
+    DB.ghLast=new Date().toISOString(); persist(); renderAll();
+    if(manual) toast(DB.recipes.length+' Rezepte vom Repo geladen');
+  }catch(e){
+    renderGhStatus('Laden fehlgeschlagen: '+e.message);
+    if(manual) toast('Laden fehlgeschlagen');
+  }
+}
+// Nach lokalen Änderungen automatisch pushen (debounced), wenn eingerichtet
+let ghPushTimer=null;
+function ghAutoPush(){
+  if(!ghReady()) return;
+  clearTimeout(ghPushTimer);
+  ghPushTimer=setTimeout(()=>pushToGitHub(false),800);
+}
+
+// GitHub-Pfad Validierung
+async function testGitHub(){
+  if(!ghReady()){ toast('Bitte alle GitHub-Felder ausfüllen'); return; }
+  const el=document.getElementById('ghStatus');
+  el.textContent='Teste Verbindung…';
+  try{
+    const c=ghCfg();
+    const url='https://api.github.com/repos/'+c.owner+'/'+c.repo+'/contents/'+encodeURIComponent(c.path)+'?ref='+encodeURIComponent(c.branch);
+    const res=await fetch(url,{cache:'no-store',headers:{'Authorization':'Bearer '+ghToken(),'Accept':'application/vnd.github+json'}});
+    if(res.status===404){ el.textContent='❌ Datei nicht gefunden: '+c.owner+'/'+c.repo+'/'+c.path+' (Branch: '+c.branch+')'; return; }
+    if(!res.ok){ el.textContent='❌ Fehler '+res.status+': Bitte Owner, Repo und Token überprüfen'; return; }
+    const j=await res.json();
+    el.textContent='✅ Konfiguration korrekt – '+c.owner+'/'+c.repo+' / '+c.path+' ('+Math.round(atob(j.content||'').length/1024)+' KB)';
+    toast('GitHub-Verbindung erfolgreich getestet');
+  }catch(e){
+    el.textContent='❌ Fehler: '+e.message;
+  }
+}
+
+/* ---------- Rezept-Scan via Anthropic API ---------- */
+function aiKey(){ try{ return localStorage.getItem('rezeptbuchAiKey')||''; }catch(e){ return ''; } }
+function aiModel(){ try{ return localStorage.getItem('rezeptbuchAiModel')||'claude-sonnet-4-6'; }catch(e){ return 'claude-sonnet-4-6'; } }
+function aiReady(){ return !!aiKey(); }
+function setAi(){
+  const k=(document.getElementById('aiKey').value||'').trim();
+  const m=document.getElementById('aiModel').value||'claude-sonnet-4-6';
+  try{ if(k) localStorage.setItem('rezeptbuchAiKey',k); localStorage.setItem('rezeptbuchAiModel',m); }catch(e){}
+  renderAiStatus(); renderScanBox();
+}
+function renderAiStatus(msg){
+  const el=document.getElementById('aiStatus'); if(!el) return;
+  el.textContent = msg || (aiReady() ? ('Bereit – Modell: '+aiModel()) : 'Kein API-Key hinterlegt – Scan ist deaktiviert.');
+}
+function renderScanBox(){
+  const box=document.getElementById('aiScanBox'), hint=document.getElementById('aiScanHint');
+  if(!box) return;
+  box.style.display = aiReady()? 'flex' : 'none';
+  if(hint) hint.textContent = aiReady()? '' : '';
+}
+
+// API-Key Validierung
+async function testApiKey(){
+  const key=(document.getElementById('aiKey').value||'').trim();
+  if(!key){ toast('Bitte zuerst einen API-Key eingeben'); return; }
+  const el=document.getElementById('aiStatus');
+  el.textContent='Teste API-Key…';
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body:JSON.stringify({model:'claude-opus-4-8',max_tokens:20,messages:[{role:'user',content:'Test'}]})
+    });
+    if(res.status===401){ el.textContent='❌ API-Key ungültig oder abgelaufen'; toast('API-Key ungültig'); return; }
+    if(!res.ok){ el.textContent='❌ API-Fehler '+res.status; return; }
+    el.textContent='✅ API-Key gültig – Modell: '+aiModel();
+    toast('API-Key erfolgreich getestet');
+  }catch(e){
+    el.textContent='❌ Fehler: '+e.message;
+  }
+}
+function pickScan(kind){
+  if(!aiReady()){ toast('Bitte zuerst den API-Key in den Einstellungen hinterlegen'); return; }
+  document.getElementById(kind==='camera'?'aiFileCam':'aiFile').click();
+}
+function fileToBase64(file){
+  return new Promise((res,rej)=>{
+    const r=new FileReader();
+    r.onload=()=>res(String(r.result).split(',')[1]);
+    r.onerror=()=>rej(new Error('Datei konnte nicht gelesen werden'));
+    r.readAsDataURL(file);
+  });
+}
+const AI_PROMPT = 'Du erhältst die Vorlage eines Kochrezepts (Foto oder PDF). Extrahiere das Rezept und antworte AUSSCHLIESSLICH mit einem JSON-Objekt, ohne Vortext, ohne Erklärung, ohne Markdown-Backticks.\n\nSchema:\n{"name":"Titel des Gerichts","cat":"Schnell|Wochenende|Beilage|Dessert","portions":4,"time":30,"src":"Quelle falls erkennbar, sonst leer","ings":[{"q":"500","u":"g","n":"Zutat"}],"steps":"Zubereitung"}\n\nRegeln:\n- Schweizer Hochdeutsch, immer "ss" statt "ß" (also Weisswein, gross, Nüsse).\n- cat: "Schnell" bei <=30 Min Hauptgericht, "Wochenende" bei aufwändigeren Hauptgerichten, "Beilage" für Salate/Saucen/Beilagen, "Dessert" für Süsses. Rate sinnvoll, lasse cat nie leer.\n- time: Gesamtzeit in Minuten als Zahl (nur Ziffern). Wenn unklar, schätze.\n- portions: Anzahl Personen als Zahl. Wenn unklar, 4.\n- ings: q = Menge (nur Zahl oder Bereich wie "1-2", ohne Einheit), u = Einheit (g, dl, EL, TL, Stück, Bund, Prise, Dose …; leer lassen wenn keine), n = Zutat inkl. Zusatz wie "fein gehackt".\n- Zutaten ohne Menge: q und u leer lassen, z.B. {"q":"","u":"","n":"Salz, Pfeffer"}.\n- steps: Fliesstext, Schritte nummeriert als "1. …" durch Leerzeile getrennt. Nährwerte und Tipps am Schluss anfügen, falls vorhanden.\n- Kein img-Feld ausgeben.\n\nWenn die Vorlage kein Rezept ist, antworte exakt: {"error":"kein Rezept erkannt"}';
+
+async function handleScanFile(input){
+  const file=input.files&&input.files[0];
+  input.value='';
+  if(!file) return;
+  if(!aiReady()){ toast('Kein API-Key hinterlegt'); return; }
+  if(file.size>10*1024*1024){ toast('Datei zu gross (max. 10 MB)'); return; }
+  const hint=document.getElementById('aiScanHint');
+  const setHint=(t,state)=>{
+    if(!hint) return;
+    hint.textContent=t||'';
+    hint.classList.remove('busy','err');
+    if(state) hint.classList.add(state);
+  };
+  setHint('Wird gelesen…','busy');
+  pendingImg=null;
+  try{
+    const b64=await fileToBase64(file);
+    const isPdf = file.type==='application/pdf' || /\.pdf$/i.test(file.name);
+    if(!isPdf) pendingImg='data:'+(file.type||'image/jpeg')+';base64,'+b64;   // Foto für Upload merken
+    const block = isPdf
+      ? {type:'document', source:{type:'base64', media_type:'application/pdf', data:b64}}
+      : {type:'image', source:{type:'base64', media_type:(file.type||'image/jpeg'), data:b64}};
+    setHint('⏳ KI liest das Rezept … dauert 10–30 Sek., bitte warten','busy');
+    const t0=Date.now();
+    const tick=setInterval(()=>{
+      const s=Math.round((Date.now()-t0)/1000);
+      setHint('⏳ KI liest das Rezept … '+s+' Sek. – bitte warten','busy');
+    },1000);
+    let res;
+    try{
+      res=await fetch('https://api.anthropic.com/v1/messages',{
+        method:'POST',
+        headers:{'Content-Type':'application/json','x-api-key':aiKey(),'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+        body:JSON.stringify({model:aiModel(),max_tokens:2000,messages:[{role:'user',content:[block,{type:'text',text:AI_PROMPT}]}]})
+      });
+    } finally { clearInterval(tick); }
+    if(!res.ok){ const t=await res.text(); throw new Error('API '+res.status+' '+t.slice(0,140)); }
+    const data=await res.json();
+    const txt=(data.content||[]).filter(c=>c.type==='text').map(c=>c.text).join('').trim();
+    const clean=txt.replace(/^```(?:json)?/i,'').replace(/```$/,'').trim();
+    let obj; try{ obj=JSON.parse(clean); }catch(e){ throw new Error('Antwort nicht lesbar'); }
+    if(obj.error){ setHint('',null); toast('Kein Rezept erkannt'); return; }
+    fillFormFromAi(obj);
+    setHint(pendingImg && ghReady() ? '✓ Erkannt – Foto wird beim Speichern als Rezeptbild hochgeladen.' : '✓ Erkannt – bitte prüfen und speichern.', null);
+    toast('Rezept erkannt – bitte prüfen');
+  }catch(e){
+    pendingImg=null;
+    setHint('Scan fehlgeschlagen: '+e.message,'err');
+    toast('Scan fehlgeschlagen');
+  }
+}
+function fillFormFromAi(o){
+  const set=(id,v)=>{ const el=document.getElementById(id); if(el&&v!=null&&v!=='') el.value=v; };
+  set('rcName',o.name);
+  const cats=['Schnell','Wochenende','Beilage','Dessert'];
+  if(o.cat&&cats.includes(o.cat)) document.getElementById('rcCat').value=o.cat;
+  set('rcPortions',o.portions); set('rcTime',o.time); set('rcSrc',o.src);
+  if(o.steps) document.getElementById('rcSteps').value=o.steps;
+  if(Array.isArray(o.ings)&&o.ings.length){
+    document.getElementById('ingRows').innerHTML='';
+    o.ings.forEach(g=>addIngRow(g&&g.q||'', g&&g.u||'', g&&g.n||''));
+  }
+}
+
+/* ---------- Bild aus Scan ins Repo (bilder/<slug>.jpg) ---------- */
+let pendingImg=null;   // {dataUrl} – Foto aus dem letzten Scan, wartet auf Speichern
+function slugify(s){
+  const map={'ä':'ae','ö':'oe','ü':'ue','Ä':'ae','Ö':'oe','Ü':'ue','é':'e','è':'e','ê':'e','à':'a','â':'a','ç':'c','î':'i','ô':'o','û':'u','ß':'ss'};
+  let x=String(s||'').split('').map(c=>map[c]!==undefined?map[c]:c).join('');
+  x=x.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+  x=x.replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').replace(/-{2,}/g,'-');
+  return x||('rezept-'+Date.now());
+}
+// Handyfotos sind gross – auf max. 1200px Breite verkleinern, als JPEG
+function shrinkImage(dataUrl,maxW){
+  return new Promise((res,rej)=>{
+    const img=new Image();
+    img.onload=()=>{
+      try{
+        const sc=Math.min(1,(maxW||1200)/img.width);
+        const w=Math.round(img.width*sc), h=Math.round(img.height*sc);
+        const cv=document.createElement('canvas'); cv.width=w; cv.height=h;
+        cv.getContext('2d').drawImage(img,0,0,w,h);
+        res(cv.toDataURL('image/jpeg',0.85).split(',')[1]);
+      }catch(e){ rej(e); }
+    };
+    img.onerror=()=>rej(new Error('Bild nicht lesbar'));
+    img.src=dataUrl;
+  });
+}
+async function uploadImage(b64,path){
+  const c=ghCfg();
+  const url='https://api.github.com/repos/'+c.owner+'/'+c.repo+'/contents/'+path.split('/').map(encodeURIComponent).join('/');
+  let sha=null;
+  try{
+    const g=await fetch(url+'?ref='+encodeURIComponent(c.branch),{headers:{'Authorization':'Bearer '+ghToken(),'Accept':'application/vnd.github+json'}});
+    if(g.ok){ const j=await g.json(); sha=j.sha||null; }
+  }catch(e){}
+  const body={message:'Rezeptbild via App '+new Date().toISOString(),content:b64,branch:c.branch};
+  if(sha) body.sha=sha;
+  const res=await fetch(url,{method:'PUT',headers:{'Authorization':'Bearer '+ghToken(),'Accept':'application/vnd.github+json','Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(!res.ok){ const t=await res.text(); throw new Error('Bild-Upload '+res.status+' '+t.slice(0,100)); }
+  return true;
+}
+// Vor dem Speichern aufrufen: lädt das Scan-Foto hoch und liefert den img-Pfad
+async function commitPendingImage(name){
+  if(!pendingImg) return null;
+  if(!ghReady()){ toast('Bild nicht hochgeladen – kein GitHub-Token'); return null; }
+  const path='bilder/'+slugify(name)+'.jpg';
+  const hint=document.getElementById('aiScanHint');
+  const setH=(t,s)=>{ if(!hint) return; hint.textContent=t||''; hint.classList.remove('busy','err'); if(s) hint.classList.add(s); };
+  try{
+    setH('⏳ Bild wird ins Repo hochgeladen …','busy');
+    const b64=await shrinkImage(pendingImg,1200);
+    await uploadImage(b64,path);
+    pendingImg=null;
+    setH('',null);
+    return path;
+  }catch(e){
+    setH('Bild-Upload fehlgeschlagen: '+e.message,'err');
+    toast('Bild-Upload fehlgeschlagen');
+    return null;
+  }
+}
+
+/* ---------- DIREKTER BILD-UPLOAD (KOMFORTABEL) ---------- */
+function pickImageUpload(){
+  if(!ghReady()){ toast('Bitte GitHub-Token in den Einstellungen einrichten'); return; }
+  document.getElementById('recImgFile').click();
+}
+
+async function handleImageUpload(input){
+  const file=input.files&&input.files[0];
+  input.value='';
+  if(!file) return;
+  if(file.size>5*1024*1024){ toast('Datei zu gross (max. 5 MB)'); return; }
+  const hint=document.getElementById('imgUploadHint');
+  const setH=(t,s)=>{ if(!hint) return; hint.textContent=t||''; hint.classList.remove('busy','err'); if(s) hint.classList.add(s); };
+  try{
+    setH('⏳ Bild wird verarbeitet…','busy');
+    const b64=await fileToBase64(file);
+    const dataUrl='data:'+(file.type||'image/jpeg')+';base64,'+b64;
+    // Vorschau zeigen
+    showImagePreview(dataUrl);
+    // Verkleinern und hochladen
+    setH('⏳ Bild wird ins Repo hochgeladen…','busy');
+    const resized=await shrinkImage(dataUrl,1200);
+    const recipeName=document.getElementById('rcName').value.trim()||'rezept';
+    const path='bilder/'+slugify(recipeName)+'.jpg';
+    await uploadImage(resized,path);
+    // rcImg-Feld mit Pfad ausfüllen
+    document.getElementById('rcImg').value=path;
+    setH('✓ Bild hochgeladen und eingestellt','');
+    toast('Bild hochgeladen: '+path);
+  }catch(e){
+    setH('Fehler: '+e.message,'err');
+    toast('Bild-Upload fehlgeschlagen');
+  }
+}
+
+function showImagePreview(dataUrl){
+  const img=document.getElementById('rcImgPreview');
+  if(img){ img.hidden=false; img.src=dataUrl; }
+}
+
+function clearImageUpload(){
+  const img=document.getElementById('rcImgPreview');
+  if(img){ img.hidden=true; img.removeAttribute('src'); }
+  const hint=document.getElementById('imgUploadHint');
+  if(hint){ hint.textContent=''; hint.classList.remove('busy','err'); }
+}
+
+/* ---------- Datei ---------- */
+function download(name,content,type){ const blob=new Blob([content],{type}); const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob); a.download=name; document.body.appendChild(a); a.click();
+  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},400); }
+function saveJSON(){ const d=new Date().toISOString().slice(0,10);
+  download('rezeptbuch-'+d+'.json', JSON.stringify(DB,null,2),'application/json'); toast('Rezeptbuch gespeichert'); }
+function loadJSON(ev){ const f=ev.target.files[0]; if(!f) return; const r=new FileReader();
+  r.onload=()=>{ try{ const d=JSON.parse(r.result); if(!d.recipes) throw 0; mergeDB(d); persist();
+    document.getElementById('srcUrl').value=DB.src||''; renderAll(); toast('Rezeptbuch geladen'); }
+    catch(e){ toast('Datei konnte nicht gelesen werden'); } }; r.readAsText(f); ev.target.value=''; }
+function normRecipe(x){ return { id:uid(), name:String(x.name).trim(), cat:CATS.includes(x.cat)?x.cat:'Schnell',
+  portions:parseInt(x.portions)||null, time:parseInt(x.time)||null,
+  ings:Array.isArray(x.ings)?x.ings.filter(g=>g&&g.n).map(g=>({q:String(g.q??'').trim(),u:String(g.u??'').trim(),n:String(g.n).trim()})):[],
+  steps:String(x.steps??'').trim(), img:String(x.img??'').trim(), src:String(x.src??'').trim(),
+  nutri:(x.nutri&&typeof x.nutri==='object')?x.nutri:undefined }; }
+function importRecipes(text){
+  try{ const d=JSON.parse(text);
+    let list=Array.isArray(d)?d:(Array.isArray(d.recipes)?d.recipes:(d.name?[d]:null)); if(!list) throw 0;
+    let added=0,skipped=0;
+    list.forEach(x=>{ if(!x||!x.name) return; const r=normRecipe(x);
+      if(DB.recipes.some(e=>nameKey(e.name)===nameKey(r.name))){skipped++;return;} DB.recipes.push(r); added++; });
+    persist(); renderAll();
+    toast(added+(added===1?' Rezept':' Rezepte')+' importiert'+(skipped?(', '+skipped+' bereits vorhanden'):'')); return true;
+  }catch(e){ toast('Text konnte nicht gelesen werden'); return false; }
+}
+function importJSON(ev){ const f=ev.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>importRecipes(r.result); r.readAsText(f); ev.target.value=''; }
+function importFromText(){ const ta=document.getElementById('importText'); const t=ta.value.trim(); if(!t){toast('Zuerst Text einfügen');return;} if(importRecipes(t)) ta.value=''; }
+function resetAll(){ if(!confirm('ALLE Rezepte und die Einkaufsliste löschen?')) return;
+  DB={recipes:[],shopping:[]}; persist(); document.getElementById('srcUrl').value=''; renderAll(); toast('Alles gelöscht'); }
+
+/* ---------- Teilen & PDF ---------- */
+function recipeAsText(r, portions){
+  const factor=portions/(r.portions||4);
+  const lines=[];
+  lines.push(r.name.toUpperCase());
+  if(r.src) lines.push('Quelle: '+r.src);
+  lines.push('Für '+portions+' Portionen'+(r.time?' · '+r.time+' Min.':''));
+  lines.push('');
+  lines.push('ZUTATEN');
+  (r.ings||[]).forEach(g=>{ const s=scaleIng(g,factor); lines.push('• '+[s.q,s.u].filter(Boolean).join(' ')+(([s.q,s.u].filter(Boolean).length)?' ':'')+g.n); });
+  lines.push('');
+  lines.push('ZUBEREITUNG');
+  splitSteps(r.steps).forEach((s,i)=>lines.push((i+1)+'. '+s));
+  return lines.join('\n');
+}
+async function shareRecipe(){
+  const r=recipeById(viewRecipeId); if(!r) return;
+  const text=recipeAsText(r, viewPortions);
+  const data={ title:r.name, text };
+  // Versuch: PDF als Datei mitschicken (wenn das Gerät File-Sharing unterstützt)
+  try{
+    if(navigator.canShare){
+      const blob=await buildPDFBlob(r, viewPortions);
+      if(blob){
+        const file=new File([blob], slug(r.name)+'.pdf', {type:'application/pdf'});
+        if(navigator.canShare({files:[file]})){
+          await navigator.share({title:r.name, text:r.name, files:[file]});
+          return;
+        }
+      }
+    }
+  }catch(e){ if(e && e.name==='AbortError') return; }
+  // Fallback: Text teilen
+  try{
+    if(navigator.share){ await navigator.share(data); return; }
+  }catch(e){ if(e && e.name==='AbortError') return; }
+  // Letzter Fallback: in Zwischenablage
+  try{ await navigator.clipboard.writeText(text); toast('Rezept in die Zwischenablage kopiert'); }
+  catch(e){ toast('Teilen wird auf diesem Gerät nicht unterstützt'); }
+}
+function slug(s){ return String(s).toLowerCase().replace(/[äàâ]/g,'a').replace(/[öô]/g,'o').replace(/[üû]/g,'u').replace(/[éèê]/g,'e').replace(/ç/g,'c').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,40); }
+
+function loadImageData(src){
+  return new Promise(resolve=>{
+    if(!src){ resolve(null); return; }
+    const img=new Image(); img.crossOrigin='anonymous';
+    img.onload=()=>{ try{
+      const c=document.createElement('canvas'); c.width=img.naturalWidth; c.height=img.naturalHeight;
+      c.getContext('2d').drawImage(img,0,0);
+      resolve({data:c.toDataURL('image/jpeg',0.85), w:img.naturalWidth, h:img.naturalHeight});
+    }catch(e){ resolve(null); } };
+    img.onerror=()=>resolve(null);
+    img.src=src;
+  });
+}
+async function buildPDFBlob(r, portions){
+  if(!window.jspdf || !window.jspdf.jsPDF){ return null; }
+  const { jsPDF }=window.jspdf;
+  const doc=new jsPDF({unit:'mm',format:'a4'});
+  const M=18, W=210, CW=W-2*M; let y=M;
+  const ink=[34,48,31], soft=[95,107,92], accent=[62,124,79];
+
+  doc.setTextColor(...ink); doc.setFont('helvetica','bold'); doc.setFontSize(20);
+  doc.text(r.name, M, y, {maxWidth:CW}); y+=9;
+  doc.setFont('helvetica','normal'); doc.setFontSize(10); doc.setTextColor(...soft);
+  const meta=[r.cat, (r.time?r.time+' Min.':null), (r.src?'Quelle: '+r.src:null), 'Für '+portions+' Portionen'].filter(Boolean).join('  ·  ');
+  doc.text(meta, M, y); y+=6;
+
+  // Bild
+  const im=await loadImageData(r.img);
+  if(im){
+    const maxH=70; let w=CW, h=w*im.h/im.w;
+    if(h>maxH){ h=maxH; w=h*im.w/im.h; }
+    const x=M+(CW-w)/2;
+    try{ doc.addImage(im.data,'JPEG',x,y,w,h); y+=h+6; }catch(e){ y+=2; }
+  } else { y+=2; }
+
+  const factor=portions/(r.portions||4);
+  // Zutaten
+  doc.setFont('helvetica','bold'); doc.setFontSize(12); doc.setTextColor(...accent);
+  doc.text('Zutaten', M, y); y+=6;
+  doc.setFont('helvetica','normal'); doc.setFontSize(10.5); doc.setTextColor(...ink);
+  (r.ings||[]).forEach(g=>{
+    const s=scaleIng(g,factor);
+    const qty=[s.q,s.u].filter(Boolean).join(' ');
+    if(y>275){ doc.addPage(); y=M; }
+    doc.setFont('helvetica','bold'); doc.text(qty, M, y);
+    doc.setFont('helvetica','normal');
+    const nameLines=doc.splitTextToSize(g.n, CW-32);
+    doc.text(nameLines, M+30, y);
+    y+=Math.max(5, nameLines.length*5);
+  });
+  y+=4;
+  // Zubereitung
+  if(y>265){ doc.addPage(); y=M; }
+  doc.setFont('helvetica','bold'); doc.setFontSize(12); doc.setTextColor(...accent);
+  doc.text('Zubereitung', M, y); y+=6;
+  doc.setFont('helvetica','normal'); doc.setFontSize(10.5); doc.setTextColor(...ink);
+  splitSteps(r.steps).forEach((s,i)=>{
+    const txt=(i+1)+'.  '+s;
+    const lines=doc.splitTextToSize(txt, CW);
+    if(y+lines.length*5>285){ doc.addPage(); y=M; }
+    doc.text(lines, M, y); y+=lines.length*5+2;
+  });
+  // Fusszeile
+  const pages=doc.internal.getNumberOfPages();
+  for(let p=1;p<=pages;p++){ doc.setPage(p); doc.setFontSize(8); doc.setTextColor(...soft);
+    doc.text('Rezeptbuch', M, 290); doc.text(p+'/'+pages, W-M, 290, {align:'right'}); }
+  return doc.output('blob');
+}
+async function recipeToPDF(){
+  const r=recipeById(viewRecipeId); if(!r) return;
+  if(!window.jspdf){ toast('PDF-Bibliothek noch nicht geladen – kurz warten'); return; }
+  toast('PDF wird erstellt…');
+  try{
+    const blob=await buildPDFBlob(r, viewPortions);
+    if(!blob){ toast('PDF konnte nicht erstellt werden'); return; }
+    const file=new File([blob], slug(r.name)+'.pdf', {type:'application/pdf'});
+    // Wenn möglich, direkt teilen (WhatsApp/Mail)
+    if(navigator.canShare && navigator.canShare({files:[file]})){
+      try{ await navigator.share({title:r.name, files:[file]}); return; }
+      catch(e){ if(e && e.name==='AbortError') return; }
+    }
+    // Sonst herunterladen
+    const url=URL.createObjectURL(blob); const a=document.createElement('a');
+    a.href=url; a.download=slug(r.name)+'.pdf'; document.body.appendChild(a); a.click();
+    setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},500);
+    toast('PDF gespeichert');
+  }catch(e){ toast('PDF-Erstellung fehlgeschlagen'); }
+}
+
+/* ---------- Sonstiges ---------- */
+let toastT;
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
+  clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('show'),2200); }
+function renderAll(){ renderHeader(); renderChips(); renderRecipes(); renderFavs(); renderShop(); renderSyncStatus(); renderGhStatus(); renderAiStatus(); }
+
+restore();
+document.getElementById('srcUrl').value=DB.src||'';
+// GitHub-Config in die Felder spiegeln
+(function fillGh(){
+  const c=ghCfg();
+  const set=(id,v)=>{const el=document.getElementById(id); if(el) el.value=v||'';};
+  set('ghOwner',c.owner); set('ghRepo',c.repo); set('ghBranch',c.branch); set('ghPath',c.path);
+  const t=document.getElementById('ghToken'); if(t&&ghToken()) t.value=ghToken();
+})();
+// KI-Scan-Config spiegeln
+(function fillAi(){
+  const k=document.getElementById('aiKey'); if(k&&aiKey()) k.value=aiKey();
+  const m=document.getElementById('aiModel'); if(m) m.value=aiModel();
+})();
+renderAll();
+// Start-Sync: Token-Repo hat Vorrang (schreibend/aktuell), sonst read-only URL-Quelle
+if(ghReady()) pullFromGitHub(false);
+else if(DB.src) syncFromSource(false);
+
+/* Service Worker für Installierbarkeit + Offline + Auto-Update + DEBUG */
+console.log('🍳 Rezeptbuch v5.1 - PWA mit maskable Icons - DEBUG MODE AKTIV');
+console.log('Browser supports Service Worker:', 'serviceWorker' in navigator);
+console.log('Current location:', window.location.href);
+
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>{
+    console.log('🔧 Versuche Service Worker zu registrieren...');
+    navigator.serviceWorker.register('/rezeptbuch/sw.js', {scope: '/rezeptbuch/'}).then(reg=>{
+      console.log('✅ Service Worker erfolgreich registriert!');
+      console.log('   State:', reg.active ? 'active' : 'pending');
+      console.log('   Scope:', reg.scope);
+      
+      // Prüfe alle 30 Sekunden auf Updates
+      setInterval(()=>{
+        console.log('🔄 Prüfe auf Updates...');
+        reg.update().catch((err)=>{
+          console.error('❌ Update-Check fehlgeschlagen:', err);
+        });
+      }, 30000);
+      
+      // Wenn ein Update verfügbar ist und der User installiert hat (waiting)
+      reg.addEventListener('updatefound',()=>{
+        console.log('📢 Update gefunden!');
+        const newWorker=reg.installing;
+        if(!newWorker) return;
+        newWorker.addEventListener('statechange',()=>{
+          console.log('   Worker State:', newWorker.state);
+          if(newWorker.state==='installed' && navigator.serviceWorker.controller){
+            // Update ist fertig und ready → Benachrichtigung zeigen
+            console.log('   ✅ Neue Version installiert!');
+            toast('🔄 Neue Version verfügbar – Seite bitte neuladen');
+          }
+        });
+      });
+    }).catch((err)=>{
+      console.error('❌ Service Worker Registration fehlgeschlagen:', err);
+      console.error('   Error message:', err.message);
+      console.error('   Stelle sicher dass:');
+      console.error('   1. ./sw.js existiert und erreichbar ist');
+      console.error('   2. manifest.json existiert und gültig ist');
+      console.error('   3. Icons existieren (wenn im SHELL Array)');
+      console.error('   4. HTTPS wird verwendet (oder localhost)');
+    });
+  });
+} else {
+  console.warn('⚠️  Service Worker wird vom Browser nicht unterstützt');
+}
+</script>
+
+</body>
+</html>
