@@ -10376,6 +10376,77 @@
       "steps": "1. Sesamöl in einem Wok erhitzen. Rüebli, Pilze, Knoblauch und Ingwer unter Rühren ca. 3 Minuten anbraten.\n\n2. Chinakohl, Mungbohnensprossen und Frühlingszwiebel beigeben, unter Rühren kurz mitbraten. Wasser beigeben und unter gelegentlichem Rühren weiterbraten, bis das Wasser verdampft ist.\n\n3. Sojasauce und Mirin beigeben, mit Salz und Cayennepfeffer abschmecken. Füllung auskühlen lassen.\n\n4. Garraum mit Heissluft mit Beschwaden auf 220 °C vorheizen.\n\n5. Maisstärke und Wasser verrühren. Ein Teigblatt auf die Arbeitsfläche legen, sodass eine Ecke nach unten zeigt. Ca. 3 EL Füllung quer auf das untere Drittel des Blattes geben.\n\n6. Untere Spitze des Blattes über die Füllung falten und leicht andrücken. Seitliche Ecken zur Mitte falten, sodass eine gerade Kante entsteht, dann von unten her satt aufrollen. Ende mit etwas Maisstärke-Flüssigkeit bestreichen und die Frühlingsrolle verschliessen. Mit den restlichen Teigblättern und der Füllung gleich verfahren.\n\n7. Frühlingsrollen mit dem Verschluss nach unten auf ein mit Backpapier belegtes Kuchenblech legen. Rollen mit wenig Sesamöl bestreichen. Kuchenblech in den vorgeheizten Garraum schieben und ca. 15 Minuten knusprig backen.\n\nTipp: Sweet-Chili-Sauce dazu servieren.",
       "img": "bilder/fruehlingsrollen-mit-gemuese.jpg",
       "src": "V-ZUG AG"
+    },
+    {
+      "name": "Öpfelchüechli",
+      "cat": "Dessert",
+      "portions": 4,
+      "time": 25,
+      "ings": [
+        {
+          "q": "1",
+          "u": "Stück",
+          "n": "frisches Eigelb"
+        },
+        {
+          "q": "1",
+          "u": "TL",
+          "n": "Rapsöl"
+        },
+        {
+          "q": "1",
+          "u": "dl",
+          "n": "Apfelsaft"
+        },
+        {
+          "q": "50",
+          "u": "g",
+          "n": "glutenfreies Mehl (z. B. Schär)"
+        },
+        {
+          "q": "1",
+          "u": "Prise",
+          "n": "Salz"
+        },
+        {
+          "q": "1",
+          "u": "Stück",
+          "n": "frisches Eiweiss"
+        },
+        {
+          "q": "1",
+          "u": "Prise",
+          "n": "Salz"
+        },
+        {
+          "q": "3",
+          "u": "Stück",
+          "n": "Äpfel (z. B. Boskoop, ca. 500 g)"
+        },
+        {
+          "q": "1",
+          "u": "Stück",
+          "n": "Zitrone, nur Saft"
+        },
+        {
+          "q": "4",
+          "u": "EL",
+          "n": "Zucker"
+        },
+        {
+          "q": "1",
+          "u": "TL",
+          "n": "Zimt"
+        },
+        {
+          "q": "",
+          "u": "",
+          "n": "Öl zum Frittieren"
+        }
+      ],
+      "steps": "1. Eigelb und Öl in einer Schüssel gut verrühren. Apfelsaft darunter rühren. Mehl und Salz beigeben, gut verrühren.\n\n2. Eiweiss mit dem Salz steif schlagen. Eischnee sorgfältig unter den Teig ziehen.\n\n3. Äpfel schälen, Kerngehäuse ausstechen, Äpfel in ca. 1 cm dicke Ringe schneiden, mit Zitronensaft beträufeln. Zucker und Zimt in einem tiefen Teller mischen.\n\n4. Einen Brattopf bis zu 1/3 Höhe mit Öl füllen, auf ca. 175 Grad erhitzen. Apfelringe trocken tupfen, einzeln durch den Teig ziehen, abtropfen lassen. Ringe portionenweise bei mittlerer Hitze beidseitig je ca. 2 Min. goldbraun backen. Herausnehmen, auf Haushaltpapier abtropfen lassen, im Zimtzucker wenden, warm stellen – dabei die Ofentür mit einem Kellenstiel einen Spaltbreit offen halten.\n\nNährwerte pro Portion (1/16): 348 kcal, F 28 g, Kh 32 g, E 2 g",
+      "img": "bilder/oepfelchueechli.jpg",
+      "src": "Betty Bossi"
     }
   ]
 }
