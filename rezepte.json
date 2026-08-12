@@ -10700,6 +10700,102 @@
       "steps": "1. Sauren Halbrahm und Mayonnaise in einer Schüssel mischen, würzen. Chili entkernen, in feine Ringe schneiden, unter die Sauce mischen. Von der Zitrone die Schale dazureiben, 1 EL Saft dazupressen. Petersilie fein schneiden, daruntermischen.\n\n2. Ofen auf 60 Grad vorheizen, Platte und Teller vorwärmen. Käse in ca. 2 cm breite Stängel schneiden. Maizena und Panko in je einen flachen Teller geben. Ei in einem tiefen Teller verklopfen. Käsestängel im Maizena wenden, überschüssiges Maizena abschütteln, im Ei, dann im Panko wenden. Panade gut andrücken.\n\n3. Bratbutter in einer beschichteten Bratpfanne heiss werden lassen, Hitze reduzieren, Käsestängel portionenweise bei mittlerer Hitze beidseitig je ca. 1 Min. goldbraun braten. Käsestängel herausnehmen, auf Haushaltspapier abtropfen, warm stellen, dabei die Ofentür mit einem Kellenstiel einen Spaltbreit offen halten. Käsestängel mit der Sauce anrichten.\n\nNährwerte pro Portion (¼): 886 kcal, F 71 g, Kh 19 g, E 42 g\n\nAirfryer-Tipp: Käsestängel in 2 Portionen mit je 1 EL Olivenöl beträufeln, ca. 2 Min. bei 200 Grad heissluftfrittieren.",
       "img": "bilder/gruyere-fries.jpg",
       "src": "Betty Bossi Nr. 7/2026"
+    },
+    {
+      "name": "Auberginen-Schnitzel",
+      "cat": "Wochenende",
+      "portions": 4,
+      "time": 110,
+      "ings": [
+        {
+          "q": "500",
+          "u": "g",
+          "n": "Tomaten, in Stücke geschnitten"
+        },
+        {
+          "q": "1",
+          "u": "Stück",
+          "n": "Zwiebel, geschält, grob gehackt"
+        },
+        {
+          "q": "1",
+          "u": "EL",
+          "n": "Olivenöl"
+        },
+        {
+          "q": "1",
+          "u": "dl",
+          "n": "Wasser"
+        },
+        {
+          "q": "1",
+          "u": "TL",
+          "n": "Salz"
+        },
+        {
+          "q": "",
+          "u": "",
+          "n": "Pfeffer"
+        },
+        {
+          "q": "4",
+          "u": "Zweiglein",
+          "n": "Thymian"
+        },
+        {
+          "q": "4",
+          "u": "Stück",
+          "n": "Auberginen (je ca. 250 g)"
+        },
+        {
+          "q": "1",
+          "u": "TL",
+          "n": "Salz"
+        },
+        {
+          "q": "",
+          "u": "",
+          "n": "Pfeffer"
+        },
+        {
+          "q": "2",
+          "u": "EL",
+          "n": "Mehl"
+        },
+        {
+          "q": "2",
+          "u": "Stück",
+          "n": "Eier"
+        },
+        {
+          "q": "20",
+          "u": "g",
+          "n": "Kürbiskerne, grob gehackt"
+        },
+        {
+          "q": "60",
+          "u": "g",
+          "n": "Paniermehl"
+        },
+        {
+          "q": "60",
+          "u": "g",
+          "n": "Sbrinz, gerieben"
+        },
+        {
+          "q": "2",
+          "u": "EL",
+          "n": "Olivenöl"
+        },
+        {
+          "q": "0.25",
+          "u": "Bund",
+          "n": "Thymian"
+        }
+      ],
+      "steps": "1. Tomaten in Stücke schneiden. Zwiebel schälen und grob hacken. Öl in einer Pfanne warm werden lassen. Zwiebel ca. 2 Min. andämpfen. Tomaten kurz andämpfen, Wasser dazugiessen, mischen und aufkochen, würzen. Hitze reduzieren und offen ca. 30 Min. köcheln. Thymianblättchen abzupfen und daruntermischen.\n\n2. Ofen auf 220 Grad vorheizen. Auberginen mit einem Messer ringsum einstechen und auf ein mit Backpapier belegtes Blech legen.\n\n3. Backen: ca. 40 Min. in der Mitte des Ofens. Herausnehmen und etwas abkühlen lassen. Auberginen schälen, mithilfe eines Haushaltspapiers flach drücken und würzen.\n\n4. Mehl in einen flachen Teller geben. Eier in einem tiefen Teller verklopfen. Kürbiskerne grob hacken, mit dem Paniermehl und dem Käse in einem flachen Teller mischen. Auberginen im Mehl wenden, überschüssiges Mehl abschütteln, im Ei, dann in der Panade wenden. Panade gut andrücken, wieder auf das mit Backpapier belegte Blech legen. Öl darüberträufeln.\n\n5. Fertig backen: ca. 20 Min. Herausnehmen, Auberginen wenden und mit der Sauce anrichten. Thymianblättchen abzupfen und darüberstreuen.\n\nNährwerte pro Portion: 382 kcal, F 21 g, Kh 33 g, E 16 g. Dazu passt Salat. Airfryer-Tipp: Die Hälfte der Auberginen im Frittierkorb verteilen, mit 1 EL Olivenöl beträufeln. Heissluftfrittieren: ca. 15 Min. bei 200 Grad, dabei nach 10 Min. wenden. Herausnehmen, anrichten, restliche Auberginen gleich zubereiten.",
+      "img": "bilder/auberginen-schnitzel.jpg",
+      "src": "Betty Bossi"
     }
   ]
 }
