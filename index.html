@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#1F2A22">
-<link rel="manifest" href="manifest.json?v=6.4">
+<link rel="manifest" href="manifest.json?v=7.0">
 <link rel="icon" type="image/png" sizes="48x48" href="icons/favicon-48.png">
 <link rel="apple-touch-icon" href="icons/favicon-48.png">
 <title>Rezeptbuch</title>
@@ -236,7 +236,7 @@ h3.sec{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:upperc
 <header>
   <div class="brand">
     <h1>Rezeptbuch</h1>
-    <button class="sub" id="hdSub" onclick="toggleChangelog()" style="background:none;border:none;cursor:pointer;padding:0;font-family:inherit;font-size:inherit;color:inherit">v6.4</button>
+    <button class="sub" id="hdSub" onclick="toggleChangelog()" style="background:none;border:none;cursor:pointer;padding:0;font-family:inherit;font-size:inherit;color:inherit">v7.0</button>
   </div>
   <div class="statrow">
     <div class="stat"><div class="v" id="hRecipes">0</div><div class="l">Rezepte</div></div>
@@ -423,7 +423,9 @@ h3.sec{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:upperc
     <input type="file" id="aiFile" accept="image/*,application/pdf" style="display:none" onchange="handleScanFile(this)">
     <div class="hint" id="aiScanHint" style="margin:-6px 0 10px"></div>
     <label>Name</label>
-    <input id="rcName" name="rc-name" placeholder="z.B. Cordon bleu" autocomplete="off" autocorrect="off" autocapitalize="sentences" spellcheck="false">
+    <div style="display:flex;gap:8px;margin-bottom:16px">
+      <button class="btn ghost" onclick="openUrlImport()" style="flex:1">📎 Von URL importieren</button>
+    </div>
     <div class="row2">
       <div><label>Kategorie</label>
         <select id="rcCat"><option>Schnell</option><option>Wochenende</option><option>Beilage</option><option>Dessert</option></select>
@@ -465,8 +467,17 @@ h3.sec{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:upperc
 // 3. manifest.json?vX.Y (Zeile ~11) ← EASY TO FORGET!
 // If manifest.json?v is not updated, old manifest gets cached!
 
-const VERSION = '6.4';
+const VERSION = '7.0';
 const CHANGELOG = [
+  {v:'7.0', d:'2026-08-12', items:[
+    '🚀 MEGA FEATURE: Rezept direkt von URL importieren!',
+    'Button "📎 Von URL importieren" in Rezept-Editor',
+    'Unterstützt verschiedene Websites: Betty Bossi, Chefkoch, etc.',
+    'Anthropic AI analysiert Website-HTML und extrahiert Rezept',
+    'Auto-füllt: Name, Zutaten, Schritte, Zeiten',
+    'User kann vor dem Speichern noch anpassen',
+    'Funktioniert mit fast jeder Rezept-Website!'
+  ]},
   {v:'6.4', d:'2026-08-12', items:[
     'CRITICAL FIX: rezepte.json wird jetzt NETWORK-FIRST geladen (nicht cache-first)',
     'Handy-App (PWA) zeigt jetzt immer die aktuellen Rezepte von GitHub',
@@ -1061,6 +1072,135 @@ function openRecipeSheet(id){
   document.getElementById('recOverlay').classList.add('open');
 }
 function closeRecipe(){ document.getElementById('recOverlay').classList.remove('open'); editRecipeId=null; pendingImg=null; clearImageUpload(); }
+
+// ========== URL-Import Funktionen ==========
+function openUrlImport(){
+  document.getElementById('urlImportOverlay').classList.add('open');
+  document.getElementById('urlImportInput').value='';
+  document.getElementById('urlImportStatus').textContent='';
+}
+
+function closeUrlImport(){
+  document.getElementById('urlImportOverlay').classList.remove('open');
+  document.getElementById('urlImportStatus').textContent='';
+}
+
+async function importRecipeFromUrl(){
+  const url=document.getElementById('urlImportInput').value.trim();
+  if(!url){ toast('Bitte URL eingeben'); return; }
+  
+  const btn=document.getElementById('urlImportBtn');
+  const status=document.getElementById('urlImportStatus');
+  
+  try{
+    btn.disabled=true;
+    btn.textContent='⏳ Website wird analysiert...';
+    status.textContent='Bitte warten...';
+    
+    // 1. Website fetchen
+    const response=await fetch(url);
+    if(!response.ok) throw new Error('Website nicht erreichbar');
+    const html=await response.text();
+    
+    status.textContent='🤖 AI analysiert Website...';
+    
+    // 2. An Anthropic API senden
+    const aiKey=localStorage.getItem('aiKey');
+    if(!aiKey){ toast('API-Key nicht konfiguriert'); return; }
+    
+    const apiResponse=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'anthropic-version':'2023-06-01',
+        'x-api-key':aiKey
+      },
+      body:JSON.stringify({
+        model:'claude-sonnet-4-6',
+        max_tokens:1000,
+        messages:[{
+          role:'user',
+          content:`Extrahiere aus diesem HTML-Content ein Rezept. Analysiere verschiedene Website-Formate (Betty Bossi, Chefkoch, etc.).
+
+Antworte AUSSCHLIESSLICH mit gültigem JSON (kein Markdown, keine Backticks):
+{
+  "name": "Rezeptname",
+  "portions": "Anzahl Portionen/Stücke",
+  "time_prep": Minuten als Zahl,
+  "time_cook": Minuten als Zahl,
+  "ingredients": [
+    {"quantity": "Menge", "unit": "Einheit", "name": "Zutatname"},
+    ...
+  ],
+  "steps": [
+    "Schritt 1 (detailliert)",
+    "Schritt 2 (detailliert)",
+    ...
+  ],
+  "source": "Website-Name"
+}
+
+HTML-Content:
+${html.substring(0,8000)}`
+        }]
+      })
+    });
+    
+    if(!apiResponse.ok){
+      const err=await apiResponse.json();
+      throw new Error(err.message||'API Fehler');
+    }
+    
+    const data=await apiResponse.json();
+    const content=data.content[0].text;
+    
+    // 3. JSON parsen
+    let recipe;
+    try{
+      recipe=JSON.parse(content);
+    }catch(e){
+      // Versuche JSON aus dem Text zu extrahieren
+      const jsonMatch=content.match(/\{[\s\S]*\}/);
+      if(!jsonMatch) throw new Error('Konnte Rezept nicht parsen');
+      recipe=JSON.parse(jsonMatch[0]);
+    }
+    
+    // 4. Form ausfüllen
+    document.getElementById('rcName').value=recipe.name||'';
+    document.getElementById('rcSrc').value=recipe.source||'';
+    document.getElementById('rcTime').value=recipe.time_cook||'';
+    
+    // Zutaten einfügen
+    const ingRows=document.getElementById('ingRows');
+    ingRows.innerHTML='';
+    if(recipe.ingredients && Array.isArray(recipe.ingredients)){
+      recipe.ingredients.forEach(ing=>{
+        const div=document.createElement('div');
+        div.className='ingrow';
+        div.innerHTML=`<input class="q" placeholder="500" value="${ing.quantity||''}" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" inputmode="text"><input class="u" placeholder="g" value="${ing.unit||''}" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"><input class="n" placeholder="Zutat" value="${ing.name||''}" autocomplete="off" autocorrect="off" autocapitalize="sentences" spellcheck="false"><button class="rm" onclick="this.parentNode.remove()">×</button>`;
+        ingRows.appendChild(div);
+      });
+    }
+    
+    // Schritte einfügen
+    if(recipe.steps && Array.isArray(recipe.steps)){
+      document.getElementById('rcSteps').value=recipe.steps.join('\n');
+    }
+    
+    status.textContent='✅ Rezept importiert!';
+    toast('Rezept erfolgreich importiert - bitte prüfen und speichern!');
+    
+    setTimeout(()=>closeUrlImport(), 1500);
+    
+  }catch(err){
+    console.error('Import-Fehler:',err);
+    status.textContent='❌ '+err.message;
+    toast('Import fehlgeschlagen: '+err.message);
+  }finally{
+    btn.disabled=false;
+    btn.textContent='🔄 Importieren';
+  }
+}
 async function saveRecipe(){
   const name=document.getElementById('rcName').value.trim();
   if(!name){ toast('Bitte einen Namen eingeben'); return; }
@@ -1646,7 +1786,7 @@ if(ghReady()) pullFromGitHub(false);
 else if(DB.src) syncFromSource(false);
 
 /* Service Worker für Installierbarkeit + Offline + Auto-Update + DEBUG */
-console.log('🍳 Rezeptbuch v6.4 - rezepte.json network-first laden - DEBUG MODE AKTIV');
+console.log('🍳 Rezeptbuch v7.0 - URL-Import mit AI - DEBUG MODE AKTIV');
 console.log('Browser supports Service Worker:', 'serviceWorker' in navigator);
 console.log('Current location:', window.location.href);
 
@@ -1740,6 +1880,19 @@ if('serviceWorker' in navigator){
   console.warn('⚠️  Service Worker wird vom Browser nicht unterstützt');
 }
 </script>
+<!-- ========== URL-Import Modal ========== -->
+<div id="urlImportOverlay" class="overlay">
+  <div class="modal">
+    <h2>Rezept von URL importieren</h2>
+    <p style="font-size:13px;color:#666">Gib die URL einer Rezept-Website ein (z.B. bettybossi.ch, chefkoch.de, etc.)</p>
+    <input id="urlImportInput" type="url" placeholder="https://www.bettybossi.ch/de/rezepte/rezept/..." style="width:100%;padding:8px;margin:12px 0;border:1px solid #ccc;border-radius:4px" autocomplete="off">
+    <div style="display:flex;gap:8px">
+      <button class="btn" id="urlImportBtn" onclick="importRecipeFromUrl()" style="flex:1">🔄 Importieren</button>
+      <button class="btn ghost" onclick="closeUrlImport()" style="flex:1">Abbrechen</button>
+    </div>
+    <div id="urlImportStatus" style="margin-top:12px;font-size:13px;min-height:20px"></div>
+  </div>
+</div>
 
 </body>
 </html>
