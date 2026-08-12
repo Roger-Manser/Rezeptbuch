@@ -23,7 +23,7 @@ self.addEventListener('activate',(e)=>{
   self.clients.claim();
 });
 
-// Fetch - HTML NIEMALS Cache, CSS auch nicht, nur JS+Assets
+// Fetch - HTML NIEMALS Cache, CSS auch nicht, rezepte.json NETWORK-FIRST, JS+Assets CACHE-FIRST
 self.addEventListener('fetch',(e)=>{
   const url=new URL(e.request.url);
   
@@ -43,7 +43,26 @@ self.addEventListener('fetch',(e)=>{
           return new Response('Offline - Netzwerk nicht erreichbar', {status: 503});
         })
     );
-  } else {
+  } 
+  // rezepte.json: NETWORK FIRST! (immer aktuell vom GitHub)
+  else if(url.pathname.includes('rezepte.json')){
+    e.respondWith(
+      fetch(e.request)
+        .then(res=>{
+          console.log('[SW] rezepte.json from network:', url.pathname);
+          if(res && res.status===200){
+            const clone=res.clone();
+            caches.open(CACHE_NAME).then(c=>c.put(e.request,clone));
+          }
+          return res;
+        })
+        .catch(()=>{
+          console.log('[SW] Network failed, using cache for rezepte.json');
+          return caches.match(e.request).then(cached=>cached||new Response('Offline'));
+        })
+    );
+  }
+  else {
     // Nur JS + Assets: Cache first
     e.respondWith(
       caches.match(e.request).then(cached=>{

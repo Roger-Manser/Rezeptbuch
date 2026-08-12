@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#1F2A22">
-<link rel="manifest" href="manifest.json?v=6.3">
+<link rel="manifest" href="manifest.json?v=6.4">
 <link rel="icon" type="image/png" sizes="48x48" href="icons/favicon-48.png">
 <link rel="apple-touch-icon" href="icons/favicon-48.png">
 <title>Rezeptbuch</title>
@@ -236,7 +236,7 @@ h3.sec{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:upperc
 <header>
   <div class="brand">
     <h1>Rezeptbuch</h1>
-    <button class="sub" id="hdSub" onclick="toggleChangelog()" style="background:none;border:none;cursor:pointer;padding:0;font-family:inherit;font-size:inherit;color:inherit">v6.3</button>
+    <button class="sub" id="hdSub" onclick="toggleChangelog()" style="background:none;border:none;cursor:pointer;padding:0;font-family:inherit;font-size:inherit;color:inherit">v6.4</button>
   </div>
   <div class="statrow">
     <div class="stat"><div class="v" id="hRecipes">0</div><div class="l">Rezepte</div></div>
@@ -465,8 +465,14 @@ h3.sec{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:upperc
 // 3. manifest.json?vX.Y (Zeile ~11) ← EASY TO FORGET!
 // If manifest.json?v is not updated, old manifest gets cached!
 
-const VERSION = '6.3';
+const VERSION = '6.4';
 const CHANGELOG = [
+  {v:'6.4', d:'2026-08-12', items:[
+    'CRITICAL FIX: rezepte.json wird jetzt NETWORK-FIRST geladen (nicht cache-first)',
+    'Handy-App (PWA) zeigt jetzt immer die aktuellen Rezepte von GitHub',
+    'Bearbeitungen in Web-App sind sofort in PWA sichtbar',
+    'Offline-Modus: rezepte.json wird gecacht, aber online wird immer aktualisiert'
+  ]},
   {v:'6.3', d:'2026-08-12', items:[
     'ENDLICH: Dynamische Password-Felder - Browser-Passwort-Manager ignoriert diese!',
     'Keine nervigen "Passwort speichern?" Fragen mehr',
@@ -1640,7 +1646,7 @@ if(ghReady()) pullFromGitHub(false);
 else if(DB.src) syncFromSource(false);
 
 /* Service Worker für Installierbarkeit + Offline + Auto-Update + DEBUG */
-console.log('🍳 Rezeptbuch v6.3 - Dynamische Password-Felder (Browser-Manager resistant) - DEBUG MODE AKTIV');
+console.log('🍳 Rezeptbuch v6.4 - rezepte.json network-first laden - DEBUG MODE AKTIV');
 console.log('Browser supports Service Worker:', 'serviceWorker' in navigator);
 console.log('Current location:', window.location.href);
 
