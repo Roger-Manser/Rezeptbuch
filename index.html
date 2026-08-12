@@ -236,7 +236,7 @@ h3.sec{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:upperc
 <header>
   <div class="brand">
     <h1>Rezeptbuch</h1>
-    <button class="sub" id="hdSub" onclick="toggleChangelog()" style="background:none;border:none;cursor:pointer;padding:0;font-family:inherit;font-size:inherit;color:inherit">v4.9</button>
+    <button class="sub" id="hdSub" onclick="toggleChangelog()" style="background:none;border:none;cursor:pointer;padding:0;font-family:inherit;font-size:inherit;color:inherit">v5.0</button>
   </div>
   <div class="statrow">
     <div class="stat"><div class="v" id="hRecipes">0</div><div class="l">Rezepte</div></div>
@@ -458,7 +458,7 @@ h3.sec{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:upperc
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 'use strict';
-const VERSION = '4.9';
+const VERSION = '5.0';
 const CHANGELOG = [
   {v:'4.8', d:'2026-08-08', items:[
     'Neu: API Guthaben Link in den Daten-Einstellungen (💳 Button)',
@@ -1569,7 +1569,7 @@ if(ghReady()) pullFromGitHub(false);
 else if(DB.src) syncFromSource(false);
 
 /* Service Worker für Installierbarkeit + Offline + Auto-Update + DEBUG */
-console.log('🍳 Rezeptbuch v4.9 - DEBUG MODE AKTIV');
+console.log('🍳 Rezeptbuch v5.0 - PWA INSTALLATION FIX - DEBUG MODE AKTIV');
 console.log('Browser supports Service Worker:', 'serviceWorker' in navigator);
 console.log('Current location:', window.location.href);
 
