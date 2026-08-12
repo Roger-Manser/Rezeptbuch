@@ -10624,6 +10624,82 @@
       "steps": "1. Bratbutter im Brattopf heiss werden lassen. Fleisch portionenweise je ca. 5 Min. anbraten. Fleisch mit Mehl bestäuben, herausnehmen, würzen. Hitze reduzieren, Bratfett auftupfen.\n\n2. Speck (80 g) in derselben Pfanne ohne Fett kurz braten. Wein dazugiessen, aufkochen, auf ca. 4 dl einkochen. Hitze reduzieren, Zwiebel schälen, mit Lorbeerblatt und Nelke bestecken, mit Rosmarin und Tomatenpüree beigeben, Knoblauch dazupressen. Fleisch wieder beigeben, zugedeckt bei kleiner Hitze ca. 2 Std. schmoren. Rosmarin entfernen.\n\n3. Speck (80 g) ohne Fett in einer Bratpfanne langsam knusprig braten. Champignons vierteln, Silberzwiebeln abspülen, abtropfen, beides ca. 10 Min. mitbraten. Rosmarin fein schneiden, beigeben, würzen, auf dem Fleisch verteilen.\n\nTipp: Lässt sich vorbereiten – Voressen ca. 1 Tag im Voraus schmoren, auskühlen, zugedeckt im Kühlschrank aufbewahren. Vor dem Servieren langsam erwärmen, die Garnitur zubereiten und darauf verteilen. Das Voressen schmeckt aufgewärmt noch besser.\n\nNährwerte pro Portion: 402 kcal, Fett 14 g, Kohlenhydrate 11 g, Eiweiss 53 g",
       "img": "bilder/boeuf-bourguignon.jpg",
       "src": "Betty Bossi"
+    },
+    {
+      "name": "Gruyère-Fries",
+      "cat": "Schnell",
+      "portions": 4,
+      "time": 30,
+      "ings": [
+        {
+          "q": "200",
+          "u": "g",
+          "n": "saurer Halbrahm"
+        },
+        {
+          "q": "50",
+          "u": "g",
+          "n": "Mayonnaise"
+        },
+        {
+          "q": "0.5",
+          "u": "TL",
+          "n": "Salz"
+        },
+        {
+          "q": "",
+          "u": "",
+          "n": "Pfeffer"
+        },
+        {
+          "q": "1",
+          "u": "Stück",
+          "n": "roter Chili, entkernt, in feine Ringe geschnitten"
+        },
+        {
+          "q": "1",
+          "u": "Stück",
+          "n": "Bio-Zitrone"
+        },
+        {
+          "q": "1",
+          "u": "Bund",
+          "n": "glattblättrige Petersilie, fein geschnitten"
+        },
+        {
+          "q": "500",
+          "u": "g",
+          "n": "rezenter Gruyère"
+        },
+        {
+          "q": "",
+          "u": "",
+          "n": "Pfeffer"
+        },
+        {
+          "q": "2",
+          "u": "EL",
+          "n": "Maizena"
+        },
+        {
+          "q": "60",
+          "u": "g",
+          "n": "Panko"
+        },
+        {
+          "q": "1",
+          "u": "Stück",
+          "n": "Ei"
+        },
+        {
+          "q": "3",
+          "u": "EL",
+          "n": "Bratbutter"
+        }
+      ],
+      "steps": "1. Sauren Halbrahm und Mayonnaise in einer Schüssel mischen, würzen. Chili entkernen, in feine Ringe schneiden, unter die Sauce mischen. Von der Zitrone die Schale dazureiben, 1 EL Saft dazupressen. Petersilie fein schneiden, daruntermischen.\n\n2. Ofen auf 60 Grad vorheizen, Platte und Teller vorwärmen. Käse in ca. 2 cm breite Stängel schneiden. Maizena und Panko in je einen flachen Teller geben. Ei in einem tiefen Teller verklopfen. Käsestängel im Maizena wenden, überschüssiges Maizena abschütteln, im Ei, dann im Panko wenden. Panade gut andrücken.\n\n3. Bratbutter in einer beschichteten Bratpfanne heiss werden lassen, Hitze reduzieren, Käsestängel portionenweise bei mittlerer Hitze beidseitig je ca. 1 Min. goldbraun braten. Käsestängel herausnehmen, auf Haushaltspapier abtropfen, warm stellen, dabei die Ofentür mit einem Kellenstiel einen Spaltbreit offen halten. Käsestängel mit der Sauce anrichten.\n\nNährwerte pro Portion (¼): 886 kcal, F 71 g, Kh 19 g, E 42 g\n\nAirfryer-Tipp: Käsestängel in 2 Portionen mit je 1 EL Olivenöl beträufeln, ca. 2 Min. bei 200 Grad heissluftfrittieren.",
+      "img": "bilder/gruyere-fries.jpg",
+      "src": "Betty Bossi Nr. 7/2026"
     }
   ]
 }
