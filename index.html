@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#1F2A22">
-<link rel="manifest" href="manifest.json?v=6.1">
+<link rel="manifest" href="manifest.json?v=6.2">
 <link rel="icon" type="image/png" sizes="48x48" href="icons/favicon-48.png">
 <link rel="apple-touch-icon" href="icons/favicon-48.png">
 <title>Rezeptbuch</title>
@@ -236,7 +236,7 @@ h3.sec{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:upperc
 <header>
   <div class="brand">
     <h1>Rezeptbuch</h1>
-    <button class="sub" id="hdSub" onclick="toggleChangelog()" style="background:none;border:none;cursor:pointer;padding:0;font-family:inherit;font-size:inherit;color:inherit">v6.1</button>
+    <button class="sub" id="hdSub" onclick="toggleChangelog()" style="background:none;border:none;cursor:pointer;padding:0;font-family:inherit;font-size:inherit;color:inherit">v6.2</button>
   </div>
   <div class="statrow">
     <div class="stat"><div class="v" id="hRecipes">0</div><div class="l">Rezepte</div></div>
@@ -310,7 +310,7 @@ h3.sec{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:upperc
         <div><label>Dateipfad</label><input id="ghPath" name="gh-path" placeholder="rezepte.json" onchange="setGh()" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></div>
       </div>
       <label>Token (fine-grained, Contents: Read &amp; Write)</label>
-      <input id="ghToken" type="password" name="gh-token-nostore" placeholder="github_pat_…" onchange="setGh()" autocomplete="new-password" autocorrect="off" autocapitalize="off" spellcheck="false" data-1p-ignore data-lpignore="true" data-form-type="other">
+      <input id="ghToken" type="password" name="gh-token-nostore" placeholder="github_pat_…" onchange="setGh()" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-1p-ignore data-lpignore="true" data-form-type="other">
       <div class="filebtns">
         <button class="btn primary" style="flex:1" onclick="testGitHub()">Testen</button>
         <button class="btn ghost" style="flex:1;margin-top:0" onclick="pushToGitHub(true)">Hochladen</button>
@@ -323,7 +323,7 @@ h3.sec{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:upperc
       <h3 class="sec" style="margin-top:0">Rezept-Scan (KI)</h3>
       <p style="font-size:13px;color:var(--ink-soft);line-height:1.5">Erlaubt im Rezept-Formular das Einlesen von <b>Foto oder PDF</b>. Die Vorlage wird an die Anthropic-API geschickt und als Rezept vorausgefüllt – du prüfst und speicherst selbst.</p>
       <label>Anthropic API-Key</label>
-      <input id="aiKey" type="password" name="ai-key-nostore" placeholder="sk-ant-…" onchange="setAi()" autocomplete="new-password" autocorrect="off" autocapitalize="off" spellcheck="false" data-1p-ignore data-lpignore="true" data-form-type="other">
+      <input id="aiKey" type="password" name="ai-key-nostore" placeholder="sk-ant-…" onchange="setAi()" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-1p-ignore data-lpignore="true" data-form-type="other">
       <label>Modell</label>
       <select id="aiModel" onchange="setAi()">
         <option value="claude-sonnet-4-6">Sonnet (empfohlen, günstig)</option>
@@ -465,8 +465,13 @@ h3.sec{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:upperc
 // 3. manifest.json?vX.Y (Zeile ~11) ← EASY TO FORGET!
 // If manifest.json?v is not updated, old manifest gets cached!
 
-const VERSION = '6.1';
+const VERSION = '6.2';
 const CHANGELOG = [
+  {v:'6.2', d:'2026-08-12', items:[
+    'FIX: Browser-Frage "Passwort speichern?" deaktiviert',
+    'GitHub Token und API Key - autocomplete="off" gesetzt',
+    'Weniger nervige Dialog-Popups beim Eingeben'
+  ]},
   {v:'6.1', d:'2026-08-12', items:[
     'Neu: popstate Event-Listener für Back-Navigation',
     'Wenn Rezept-Detail offen → Back schließt Detail (nicht App)',
@@ -1629,7 +1634,7 @@ if(ghReady()) pullFromGitHub(false);
 else if(DB.src) syncFromSource(false);
 
 /* Service Worker für Installierbarkeit + Offline + Auto-Update + DEBUG */
-console.log('🍳 Rezeptbuch v6.1 - popstate Back-Navigation - DEBUG MODE AKTIV');
+console.log('🍳 Rezeptbuch v6.2 - Password-Speichern deaktiviert - DEBUG MODE AKTIV');
 console.log('Browser supports Service Worker:', 'serviceWorker' in navigator);
 console.log('Current location:', window.location.href);
 
