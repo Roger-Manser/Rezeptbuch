@@ -10970,6 +10970,72 @@
       "steps": "1. Den Blätterteig in ein rundes Kuchenblech (25 cm) legen.\n\n2. Die Zwiebeln dämpfen und auskühlen lassen, dann gleichmässig auf dem Blech verteilen.\n\n3. Für den Guss Rahm, Milch, Eier und Gruyère verrühren. Mit Salz, Pfeffer, Thymian und Muskat würzen.\n\n4. Den Guss über die Zwiebeln giessen.\n\n5. Im vorgeheizten Backofen bei 220 °C auf der untersten Rille ca. 30 Minuten backen.",
       "img": "bilder/zwiebelfladen.jpg",
       "src": ""
+    },
+    {
+      "name": "Schokoladen-Cakes",
+      "cat": "Wochenende",
+      "portions": 8,
+      "time": 80,
+      "ings": [
+        {
+          "q": "150",
+          "u": "g",
+          "n": "Margarine"
+        },
+        {
+          "q": "200",
+          "u": "g",
+          "n": "Zucker"
+        },
+        {
+          "q": "0.5",
+          "u": "",
+          "n": "Briefli Vanillezucker"
+        },
+        {
+          "q": "6",
+          "u": "",
+          "n": "Eigelb"
+        },
+        {
+          "q": "1",
+          "u": "Prise",
+          "n": "Salz"
+        },
+        {
+          "q": "200",
+          "u": "g",
+          "n": "dunkle Schokolade (70% Kakao)"
+        },
+        {
+          "q": "3",
+          "u": "EL",
+          "n": "warmes Wasser"
+        },
+        {
+          "q": "125",
+          "u": "g",
+          "n": "Mandeln, gemahlen"
+        },
+        {
+          "q": "125",
+          "u": "g",
+          "n": "Zwieback, gemahlen"
+        },
+        {
+          "q": "0.5",
+          "u": "",
+          "n": "Briefli Backpulver"
+        },
+        {
+          "q": "6",
+          "u": "",
+          "n": "Eiweiss, steif geschlagen"
+        }
+      ],
+      "steps": "1. Margarine, Zucker, Vanillezucker, Eigelb und Salz zusammen schaumig rühren.\n\n2. Dunkle Schokolade mit 3 EL warmem Wasser auflösen und der Masse beigeben.\n\n3. Gemahlene Mandeln, gemahlenen Zwieback und Backpulver darunter mischen.\n\n4. Zuletzt das steif geschlagene Eiweiss sorgfältig darunterziehen.\n\n5. Den Kuchen in der Mitte des auf 150 Grad vorgeheizten Ofens während 60 Minuten backen.",
+      "img": "bilder/schokoladen-cakes.jpg",
+      "src": ""
     }
   ]
 }
