@@ -10919,6 +10919,57 @@
       "steps": "1. Zwiebeln schälen und in Scheiben schneiden.\n\n2. Speck würfeln und 3 Min. in kochendem Wasser blanchieren, anschliessend in der Bratbutter knusprig braten.\n\n3. Die Hälfte der Zwiebeln und des Specks in eine feuerfeste Form geben. Mit dem in dünne Scheiben geschnittenen Brot bedecken und die restlichen Zwiebeln und den Speck darüber verteilen.\n\n4. Eier und Rahm gut verrühren, mit Salz, Pfeffer und Muskat würzen. Die Masse über den Auflauf giessen und 10 Min. stehen lassen.\n\n5. Nach Wunsch den Käse darüber streuen.\n\n6. Bei 200 °C in der unteren Hälfte des Ofens 20 Min. backen.",
       "img": "bilder/zwiebel-auflauf.jpg",
       "src": ""
+    },
+    {
+      "name": "Zwiebelfladen",
+      "cat": "Wochenende",
+      "portions": 2,
+      "time": 60,
+      "ings": [
+        {
+          "q": "1",
+          "u": "stk",
+          "n": "Blätterteig, fertig gekauft"
+        },
+        {
+          "q": "500",
+          "u": "g",
+          "n": "Zwiebeln"
+        },
+        {
+          "q": "2",
+          "u": "dl",
+          "n": "Rahm"
+        },
+        {
+          "q": "1",
+          "u": "dl",
+          "n": "Milch"
+        },
+        {
+          "q": "2",
+          "u": "",
+          "n": "Eier"
+        },
+        {
+          "q": "50",
+          "u": "g",
+          "n": "Gruyère, gerieben"
+        },
+        {
+          "q": "1",
+          "u": "TL",
+          "n": "Salz"
+        },
+        {
+          "q": "",
+          "u": "",
+          "n": "Pfeffer, Thymian, Muskat"
+        }
+      ],
+      "steps": "1. Den Blätterteig in ein rundes Kuchenblech (25 cm) legen.\n\n2. Die Zwiebeln dämpfen und auskühlen lassen, dann gleichmässig auf dem Blech verteilen.\n\n3. Für den Guss Rahm, Milch, Eier und Gruyère verrühren. Mit Salz, Pfeffer, Thymian und Muskat würzen.\n\n4. Den Guss über die Zwiebeln giessen.\n\n5. Im vorgeheizten Backofen bei 220 °C auf der untersten Rille ca. 30 Minuten backen.",
+      "img": "bilder/zwiebelfladen.jpg",
+      "src": ""
     }
   ]
 }
