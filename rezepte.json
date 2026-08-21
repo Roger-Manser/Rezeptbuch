@@ -10972,70 +10972,80 @@
       "src": ""
     },
     {
-      "name": "Schokoladen-Cakes",
-      "cat": "Wochenende",
-      "portions": 8,
-      "time": 80,
+      "name": "Rindsfilet Stroganoff",
+      "cat": "Schnell",
+      "portions": 4,
+      "time": 30,
       "ings": [
         {
-          "q": "150",
-          "u": "g",
-          "n": "Margarine"
-        },
-        {
-          "q": "200",
-          "u": "g",
-          "n": "Zucker"
-        },
-        {
-          "q": "0.5",
-          "u": "",
-          "n": "Briefli Vanillezucker"
-        },
-        {
-          "q": "6",
-          "u": "",
-          "n": "Eigelb"
+          "q": "1",
+          "u": "Stück",
+          "n": "Zwiebel"
         },
         {
           "q": "1",
-          "u": "Prise",
+          "u": "Stück",
+          "n": "rote Peperoni"
+        },
+        {
+          "q": "1",
+          "u": "Stück",
+          "n": "grüne Peperoni"
+        },
+        {
+          "q": "100",
+          "u": "g",
+          "n": "weisse Champignons"
+        },
+        {
+          "q": "2",
+          "u": "Stück",
+          "n": "Essiggurken"
+        },
+        {
+          "q": "600",
+          "u": "g",
+          "n": "Rindsfilet am Stück"
+        },
+        {
+          "q": "",
+          "u": "",
           "n": "Salz"
         },
         {
-          "q": "200",
-          "u": "g",
-          "n": "dunkle Schokolade (70% Kakao)"
+          "q": "",
+          "u": "",
+          "n": "Pfeffer"
+        },
+        {
+          "q": "2",
+          "u": "EL",
+          "n": "Bratbutter"
+        },
+        {
+          "q": "2",
+          "u": "EL",
+          "n": "edelsüsser Paprika"
+        },
+        {
+          "q": "2",
+          "u": "dl",
+          "n": "Rotwein"
         },
         {
           "q": "3",
-          "u": "EL",
-          "n": "warmes Wasser"
+          "u": "dl",
+          "n": "gebundene Bratensauce"
         },
         {
-          "q": "125",
+          "q": "180",
           "u": "g",
-          "n": "Mandeln, gemahlen"
-        },
-        {
-          "q": "125",
-          "u": "g",
-          "n": "Zwieback, gemahlen"
-        },
-        {
-          "q": "0.5",
-          "u": "",
-          "n": "Briefli Backpulver"
-        },
-        {
-          "q": "6",
-          "u": "",
-          "n": "Eiweiss, steif geschlagen"
+          "n": "Saurer Halbrahm (1 Becher)"
         }
       ],
-      "steps": "1. Margarine, Zucker, Vanillezucker, Eigelb und Salz zusammen schaumig rühren.\n\n2. Dunkle Schokolade mit 3 EL warmem Wasser auflösen und der Masse beigeben.\n\n3. Gemahlene Mandeln, gemahlenen Zwieback und Backpulver darunter mischen.\n\n4. Zuletzt das steif geschlagene Eiweiss sorgfältig darunterziehen.\n\n5. Den Kuchen in der Mitte des auf 150 Grad vorgeheizten Ofens während 60 Minuten backen.",
-      "img": "bilder/schokoladen-cakes.jpg",
-      "src": ""
+      "steps": "1. Zwiebel schälen und fein hacken. Peperoni waschen, vierteln, entkernen und in feine Streifen schneiden.\n\n2. Champignonstiele frisch anschneiden. Champignons in feine Scheiben schneiden. Essiggurken in feine Streifen schneiden.\n\n3. Rindsfilet in Streifen à 1,5 cm schneiden. Mit Salz und Pfeffer würzen.\n\n4. Etwas Bratbutter in einer Bratpfanne erhitzen. Fleisch portionenweise darin rundum ca. 3 Minuten anbraten. Rindsfilet herausnehmen, auf einen Teller geben und mit einem zweiten Teller zudecken.\n\n5. Zwiebel, Peperoni und Champignons in der gleichen Pfanne in der restlichen Bratbutter dünsten. Paprika beigeben und mischen. Mit Rotwein ablöschen und etwas einkochen lassen. Bratensauce beigeben und 5 Minuten köcheln lassen.\n\n6. Fleisch samt dem Saft, der sich gebildet hat, zur Sauce geben. Erwärmen, aber nicht mehr kochen.\n\n7. Essiggurken und sauren Halbrahm unter die Sauce rühren. Stroganoff anrichten.\n\nNährwerte pro Person: Eiweiss 38 g, Fett 16 g, Kohlenhydrate 15 g, 400 kcal\n\nTipps: Paprika nur leicht andünsten – bei zu hoher Hitze wird es bitter. Wenn das Fleisch in der Sauce gekocht wird (statt nur erwärmt), wird es zäh. Gericht nach Belieben mit gehackter Petersilie bestreuen. Statt Rindsfilet kann auch Rindshüft verwendet werden. Dazu passen Spätzli oder Reis.",
+      "img": "",
+      "src": "https://migusto.migros.ch/de/rezepte/rindsfilet-stroganoff"
     }
   ]
 }
