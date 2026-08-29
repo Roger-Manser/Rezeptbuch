@@ -11046,6 +11046,62 @@
       "steps": "1. Zwiebel schälen und fein hacken. Peperoni waschen, vierteln, entkernen und in feine Streifen schneiden.\n\n2. Champignonstiele frisch anschneiden. Champignons in feine Scheiben schneiden. Essiggurken in feine Streifen schneiden.\n\n3. Rindsfilet in Streifen à 1,5 cm schneiden. Mit Salz und Pfeffer würzen.\n\n4. Etwas Bratbutter in einer Bratpfanne erhitzen. Fleisch portionenweise darin rundum ca. 3 Minuten anbraten. Rindsfilet herausnehmen, auf einen Teller geben und mit einem zweiten Teller zudecken.\n\n5. Zwiebel, Peperoni und Champignons in der gleichen Pfanne in der restlichen Bratbutter dünsten. Paprika beigeben und mischen. Mit Rotwein ablöschen und etwas einkochen lassen. Bratensauce beigeben und 5 Minuten köcheln lassen.\n\n6. Fleisch samt dem Saft, der sich gebildet hat, zur Sauce geben. Erwärmen, aber nicht mehr kochen.\n\n7. Essiggurken und sauren Halbrahm unter die Sauce rühren. Stroganoff anrichten.\n\nNährwerte pro Person: Eiweiss 38 g, Fett 16 g, Kohlenhydrate 15 g, 400 kcal\n\nTipps: Paprika nur leicht andünsten – bei zu hoher Hitze wird es bitter. Wenn das Fleisch in der Sauce gekocht wird (statt nur erwärmt), wird es zäh. Gericht nach Belieben mit gehackter Petersilie bestreuen. Statt Rindsfilet kann auch Rindshüft verwendet werden. Dazu passen Spätzli oder Reis.",
       "img": "bilder/rindsfilet-stroganoff.jpg",
       "src": "https://migusto.migros.ch/de/rezepte/rindsfilet-stroganoff"
+    },
+    {
+      "name": "Piccata Milanese",
+      "cat": "Schnell",
+      "portions": 4,
+      "time": 20,
+      "ings": [
+        {
+          "q": "4",
+          "u": "EL",
+          "n": "Mehl"
+        },
+        {
+          "q": "2",
+          "u": "",
+          "n": "frische Eier"
+        },
+        {
+          "q": "2",
+          "u": "EL",
+          "n": "Milch"
+        },
+        {
+          "q": "50",
+          "u": "g",
+          "n": "geriebener Parmesan"
+        },
+        {
+          "q": "0.25",
+          "u": "TL",
+          "n": "Paprika"
+        },
+        {
+          "q": "0.25",
+          "u": "TL",
+          "n": "Salz"
+        },
+        {
+          "q": "0.25",
+          "u": "TL",
+          "n": "Pfeffer"
+        },
+        {
+          "q": "16",
+          "u": "",
+          "n": "Kalbsplätzli (je ca. 20 g, z. B. falsches Filet / Schlüsselriemen, Nuss)"
+        },
+        {
+          "q": "",
+          "u": "",
+          "n": "Bratbutter zum Braten"
+        }
+      ],
+      "steps": "1. Ofen auf 60 Grad vorheizen, Platte und Teller vorwärmen. Mehl in einen flachen Teller geben. Eier mit der Milch in einem tiefen Teller verklopfen, Käse darunter rühren.\n\n2. Paprika, Salz und Pfeffer mischen, Plätzli damit würzen. Wenig Bratbutter in einer beschichteten Bratpfanne heiss werden lassen. Hitze reduzieren. Plätzli portionenweise im Mehl wenden, überschüssiges Mehl abschütteln, in der Ei-Käse-Mischung wenden. Plätzli bei mittlerer Hitze beidseitig je ca. 30 Sek. braten, herausnehmen, warm stellen.\n\nHinweis: Dazu passt Spaghetti an Tomatensauce oder Safranrisotto.\n\nNährwerte pro Portion (1/4): 341 kcal, F 23 g, Kh 8 g, E 26 g",
+      "img": "bilder/piccata-milanese.jpg",
+      "src": "Betty Bossi"
     }
   ]
 }
