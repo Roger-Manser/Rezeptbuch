@@ -11102,6 +11102,47 @@
       "steps": "1. Ofen auf 60 Grad vorheizen, Platte und Teller vorwärmen. Mehl in einen flachen Teller geben. Eier mit der Milch in einem tiefen Teller verklopfen, Käse darunter rühren.\n\n2. Paprika, Salz und Pfeffer mischen, Plätzli damit würzen. Wenig Bratbutter in einer beschichteten Bratpfanne heiss werden lassen. Hitze reduzieren. Plätzli portionenweise im Mehl wenden, überschüssiges Mehl abschütteln, in der Ei-Käse-Mischung wenden. Plätzli bei mittlerer Hitze beidseitig je ca. 30 Sek. braten, herausnehmen, warm stellen.\n\nHinweis: Dazu passt Spaghetti an Tomatensauce oder Safranrisotto.\n\nNährwerte pro Portion (1/4): 341 kcal, F 23 g, Kh 8 g, E 26 g",
       "img": "bilder/piccata-milanese.jpg",
       "src": "Betty Bossi"
+    },
+    {
+      "name": "Bratensauce",
+      "cat": "Beilage",
+      "portions": 4,
+      "time": 25,
+      "ings": [
+        {
+          "q": "1",
+          "u": "",
+          "n": "Zwiebel, geschält, fein gehackt"
+        },
+        {
+          "q": "1",
+          "u": "",
+          "n": "Knoblauchzehe, geschält, fein gehackt"
+        },
+        {
+          "q": "1",
+          "u": "EL",
+          "n": "Butter"
+        },
+        {
+          "q": "2",
+          "u": "EL",
+          "n": "Tomatenpüree"
+        },
+        {
+          "q": "4",
+          "u": "dl",
+          "n": "Rotwein (z.B. Barolo)"
+        },
+        {
+          "q": "0.25",
+          "u": "TL",
+          "n": "Salz"
+        }
+      ],
+      "steps": "1. Zwiebel und Knoblauch schälen und fein hacken.\n\n2. Butter in einer Pfanne warm werden lassen. Zwiebel und Knoblauch andämpfen, Tomatenpüree kurz mitdämpfen.\n\n3. Wein dazugiessen, aufkochen und auf ca. 2 dl einkochen lassen.\n\n4. Sauce absieben, salzen und anrichten.\n\nErgibt ca. 2 dl. Tipp: Falls ein Bratsatz vom Anbraten des Fleisches vorhanden ist, Sauce in derselben Pfanne zubereiten. Passt zu allen Fleischsorten. Nährwerte pro dl: 75 kcal, F 3 g, Kh 3 g, E 1 g.",
+      "img": "bilder/bratensauce.jpg",
+      "src": "Betty Bossi"
     }
   ]
 }
