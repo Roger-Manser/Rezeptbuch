@@ -11143,6 +11143,67 @@
       "steps": "1. Zwiebel und Knoblauch schälen und fein hacken.\n\n2. Butter in einer Pfanne warm werden lassen. Zwiebel und Knoblauch andämpfen, Tomatenpüree kurz mitdämpfen.\n\n3. Wein dazugiessen, aufkochen und auf ca. 2 dl einkochen lassen.\n\n4. Sauce absieben, salzen und anrichten.\n\nErgibt ca. 2 dl. Tipp: Falls ein Bratsatz vom Anbraten des Fleisches vorhanden ist, Sauce in derselben Pfanne zubereiten. Passt zu allen Fleischsorten. Nährwerte pro dl: 75 kcal, F 3 g, Kh 3 g, E 1 g.",
       "img": "bilder/bratensauce.jpg",
       "src": "Betty Bossi"
+    },
+    {
+      "name": "Risotto milanese (Safranrisotto)",
+      "cat": "Wochenende",
+      "portions": 4,
+      "time": 35,
+      "ings": [
+        {
+          "q": "1",
+          "u": "",
+          "n": "Zwiebel"
+        },
+        {
+          "q": "1",
+          "u": "",
+          "n": "Knoblauchzehe"
+        },
+        {
+          "q": "1",
+          "u": "EL",
+          "n": "Olivenöl"
+        },
+        {
+          "q": "400",
+          "u": "g",
+          "n": "Risottoreis (z. B. Arborio)"
+        },
+        {
+          "q": "2",
+          "u": "Briefchen",
+          "n": "Safran"
+        },
+        {
+          "q": "4",
+          "u": "dl",
+          "n": "Weisswein"
+        },
+        {
+          "q": "1",
+          "u": "l",
+          "n": "Gemüsebouillon, heiss"
+        },
+        {
+          "q": "50",
+          "u": "g",
+          "n": "Parmesan, gerieben"
+        },
+        {
+          "q": "1",
+          "u": "EL",
+          "n": "Olivenöl"
+        },
+        {
+          "q": "",
+          "u": "",
+          "n": "Salz, Pfeffer"
+        }
+      ],
+      "steps": "1. Zwiebel und Knoblauch schälen, fein hacken.\n\n2. Öl in einer Pfanne warm werden lassen. Zwiebel und Knoblauch andämpfen. Risotto und Safran beigeben, unter Rühren dünsten, bis er glasig ist. Die Hälfte des Weins dazugiessen, vollständig einkochen, restlichen Wein dazugiessen, vollständig einkochen. Bouillon unter häufigem Rühren nach und nach dazugiessen, sodass der Reis immer knapp mit Flüssigkeit bedeckt ist, ca. 20 Min. köcheln, bis der Reis cremig und al dente ist.\n\n3. Käse und Öl unter den Reis mischen, würzen.\n\nNährwerte pro Portion (1/4): 569 kcal, F 15 g, Kh 77 g, E 12 g",
+      "img": "bilder/risotto-milanese-safranrisotto.jpg",
+      "src": "Betty Bossi"
     }
   ]
 }
